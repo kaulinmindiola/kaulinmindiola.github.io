@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kaulin Mindiola · Backend</title>
+<meta name="description" content="Kaulin Mindiola, Backend Engineer Java y Spring Boot. ~4 años en sistemas distribuidos de órdenes y pagos: p95 de 6 s a 0,4 s, migración a Java 17 / Spring Boot 3.2, flujos de pago resilientes.">
+<meta name="author" content="Kaulin Camilo Mindiola Gonzalez">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kaulin Mindiola · Backend Engineer (Java / Spring Boot)">
+<meta property="og:description" content="~4 años construyendo sistemas distribuidos de órdenes y pagos. Impacto en producción y proyectos públicos con pruebas de integración.">
+<meta property="og:image" content="assets/foto-perfil.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#2340C8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232340C8'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-weight='700' font-size='26' fill='white' text-anchor='middle'%3EKM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: proof-first reading order. Hero → production impact (to-scale before/after) → experience timeline → public projects as case files → stack → contact. One left-aligned 1040px column. */
+:root{
+  --bg:#F4F6F9; --surface:#FFFFFF; --ink:#111722; --muted:#566074; --line:#DCE1EA;
+  --accent:#2340C8; --accent-soft:#E6EBFB; --term:#0F1420; --term-ink:#D9E0EE; --term-dim:#7F8AA3;
+  --ok:#1C8A57; --ok-soft:#E2F3EA; --wip:#A86400; --wip-soft:#FBEFD9; --before:#A3ABBC;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1118; --surface:#151B26; --ink:#E8ECF4; --muted:#9AA4B8; --line:#263042;
+  --accent:#8EA4FF; --accent-soft:#1C2645; --term:#080B11; --term-ink:#D9E0EE; --term-dim:#6F7A92;
+  --ok:#5BD49A; --ok-soft:#12291F; --wip:#F0B357; --wip-soft:#2E2312; --before:#4A5468; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0D1118; --surface:#151B26; --ink:#E8ECF4; --muted:#9AA4B8; --line:#263042;
+  --accent:#8EA4FF; --accent-soft:#1C2645; --term:#080B11; --term-ink:#D9E0EE; --term-dim:#6F7A92;
+  --ok:#5BD49A; --ok-soft:#12291F; --wip:#F0B357; --wip-soft:#2E2312; --before:#4A5468; color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+:root:not([data-lang="en"]) [lang="en"], :root[data-lang="en"] [lang="es"]{display:none!important}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:20px}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.12}
+p{margin:0}
+.mono{font-family:var(--f-mono)}
+.label{font:500 .7rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* Top bar */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:20px;height:56px}
+.brand{font-family:var(--f-mono);font-size:.82rem;color:var(--ink);text-decoration:none;font-weight:500;white-space:nowrap}
+.brand b{color:var(--accent);font-weight:500}
+.nav{display:flex;gap:18px;margin-left:auto;font-size:.88rem}
+.nav a{color:var(--muted);text-decoration:none}
+.nav a:hover{color:var(--ink)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:2px;flex:none}
+.lang button{font:500 .74rem var(--f-mono);letter-spacing:.06em;border:0;background:transparent;color:var(--muted);padding:4px 10px;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+@media (max-width:760px){.nav{display:none}.lang{margin-left:auto}}
+
+/* Hero */
+.hero{padding-block:68px 8px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:center}
+.status{display:inline-flex;align-items:center;gap:8px;font:500 .78rem var(--f-mono);color:var(--ok);background:var(--ok-soft);padding:5px 12px;border-radius:999px}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.hero h1{font-size:clamp(2.6rem,7.5vw,4.6rem);font-weight:800;letter-spacing:-.025em;margin-top:22px}
+.role{font-family:var(--f-mono);font-size:clamp(.9rem,2.2vw,1.02rem);color:var(--muted);margin-top:14px}
+.role span{color:var(--accent)}
+.thesis{font-size:clamp(1.12rem,2.5vw,1.36rem);line-height:1.5;max-width:33em;margin-top:26px}
+.thesis em{font-style:normal;background:linear-gradient(transparent 62%,var(--accent-soft) 62%)}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.93rem;text-decoration:none;padding:10px 16px;border-radius:8px;border:1px solid var(--line);color:var(--ink);background:var(--surface);cursor:pointer;font-family:var(--f-body)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.btn:hover{border-color:var(--accent)}
+.btn svg{width:16px;height:16px;flex:none}
+.portrait{width:clamp(180px,24vw,260px);aspect-ratio:4/5;max-width:100%;position:relative;margin:0}
+.portrait img,.portrait .initials{width:100%;height:100%;object-fit:cover;border-radius:14px;display:block;border:1px solid var(--line)}
+.portrait .initials{display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font:800 3.4rem var(--f-display);letter-spacing:-.03em}
+.portrait figcaption{position:absolute;left:12px;bottom:12px;font:500 .7rem var(--f-mono);background:var(--surface);color:var(--ink);border:1px solid var(--line);padding:3px 8px;border-radius:6px}
+@media (max-width:760px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:26px}.portrait{order:-1;width:132px}.portrait figcaption{display:none}}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:52px 0 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts div{padding:16px 18px 16px 0;min-width:0}
+.facts div+div{padding-left:18px;border-left:1px solid var(--line)}
+.facts dt{font:500 .7rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.facts dd{margin:4px 0 0;font-family:var(--f-display);font-weight:700;font-size:1.12rem}
+@media (max-width:760px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.facts div:nth-child(3){padding-left:0;border-left:0}.facts div:nth-child(n+3){border-top:1px solid var(--line)}}
+
+/* Sections */
+section{padding-block:60px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:12px 32px;align-items:end;margin-bottom:28px;padding-bottom:14px;border-bottom:2px solid var(--ink)}
+.sec-head h2{font-size:clamp(1.6rem,4vw,2.15rem);font-weight:700;letter-spacing:-.015em}
+.sec-head p{font-size:.92rem;color:var(--muted)}
+@media (max-width:760px){.sec-head{grid-template-columns:minmax(0,1fr)}}
+
+/* Impact */
+.impact{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:760px){.impact{grid-template-columns:minmax(0,1fr)}}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;gap:14px;align-content:start;min-width:0}
+.kpi .big{font:800 clamp(2.4rem,6vw,3.3rem)/1 var(--f-display);letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.kpi .big small{font-size:.42em;letter-spacing:0;color:var(--muted);font-weight:700;margin-left:6px}
+.kpi h3{font-size:1.08rem;font-weight:700}
+.kpi p{color:var(--muted);font-size:.93rem}
+.cmp{display:grid;gap:8px}
+.cmp-row{display:grid;grid-template-columns:4.6em minmax(0,1fr) 5.8em;align-items:center;gap:10px;font:400 .76rem var(--f-mono);color:var(--muted)}
+.cmp-row b{white-space:nowrap;font-weight:500;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
+.track{height:12px;border-radius:3px;background:color-mix(in srgb,var(--line) 55%,transparent)}
+.fill{height:100%;border-radius:3px;background:var(--before)}
+.fill.after{background:var(--accent)}
+.steps{display:flex;flex-wrap:wrap;gap:6px;font:400 .76rem var(--f-mono)}
+.steps span{border:1px solid var(--line);border-radius:6px;padding:3px 8px;background:var(--bg)}
+.ver{display:flex;align-items:center;gap:10px;font:500 .95rem var(--f-mono);flex-wrap:wrap}
+.ver s{color:var(--muted);text-decoration-thickness:1px}
+.ver i{font-style:normal;color:var(--muted)}
+.ver strong{color:var(--accent);font-weight:500}
+.cov .track{height:8px}
+.context{margin-top:20px;font-size:.88rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px}
+.context span+span::before{content:"· ";color:var(--accent)}
+
+/* Experience */
+.role-row{display:grid;grid-template-columns:210px minmax(0,1fr);gap:32px;padding-block:28px;border-bottom:1px solid var(--line)}
+.role-row:first-child{padding-top:4px}
+.role-row:last-child{border-bottom:0}
+@media (max-width:760px){.role-row{grid-template-columns:minmax(0,1fr);gap:10px}}
+.when{font:500 .82rem var(--f-mono);color:var(--muted)}
+.when strong{display:block;color:var(--ink);font-family:var(--f-display);font-size:1.25rem;font-weight:700;margin-bottom:4px}
+.role-row h3{font-size:1.3rem;font-weight:700}
+.role-row .sub{color:var(--muted);font-size:.93rem;margin-top:6px;max-width:46em}
+.cases{display:grid;gap:18px;margin-top:20px}
+.case{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px}
+@media (max-width:560px){.case{grid-template-columns:minmax(0,1fr);gap:4px}}
+.case .label{color:var(--accent);padding-top:3px}
+.case p{max-width:46em}
+.case strong{font-weight:600}
+
+/* Projects */
+.projects{display:grid;gap:26px}
+.project{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.p-top{padding:26px 26px 0;display:grid;gap:12px}
+.p-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font:500 .74rem var(--f-mono);letter-spacing:.04em}
+.p-axis{color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+.pill{padding:3px 10px;border-radius:999px}
+.pill.done{color:var(--ok);background:var(--ok-soft)}
+.pill.wip{color:var(--wip);background:var(--wip-soft)}
+.project h3{font-size:clamp(1.4rem,3.4vw,1.8rem);font-weight:700;letter-spacing:-.01em;overflow-wrap:anywhere}
+.p-lead{color:var(--muted);max-width:46em}
+.p-link{font-size:.86rem;color:var(--ink);max-width:46em}
+.p-link::before{content:"↳ ";color:var(--accent);font-family:var(--f-mono)}
+.p-body{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:26px;padding:22px 26px 26px}
+@media (max-width:840px){.p-body{grid-template-columns:minmax(0,1fr)}}
+.p-body .label{margin-bottom:10px}
+.decisions{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:.95rem}
+.decisions li{padding-left:18px;position:relative}
+.decisions li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:2px;background:var(--accent)}
+.decisions strong{font-weight:600}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:20px;font:400 .76rem var(--f-mono)}
+.flow span{border:1px solid var(--line);border-radius:6px;padding:4px 8px;background:var(--bg)}
+.flow i{font-style:normal;color:var(--muted)}
+.term{background:var(--term);color:var(--term-ink);border-radius:10px;font:400 .8rem/1.65 var(--f-mono);padding:16px 18px;overflow-x:auto;min-width:0;align-self:start}
+.term .cmd{color:var(--term-dim)}
+.term .pass{color:#5BD49A}
+.term .wipc{color:#F0B357}
+.term .row{display:block;white-space:pre-wrap}
+.term .sum{display:block;margin-top:8px;padding-top:8px;border-top:1px solid #222A3A;color:var(--term-dim)}
+.p-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:16px 26px;border-top:1px solid var(--line)}
+.chip{font:400 .76rem var(--f-mono);color:var(--ink);background:var(--bg);border:1px solid var(--line);padding:3px 9px;border-radius:6px}
+.repo{margin-left:auto;font-weight:600;font-size:.9rem;text-decoration:none;white-space:nowrap}
+.repo:hover{text-decoration:underline}
+@media (max-width:560px){.repo{margin-left:0;width:100%}.p-top{padding:20px 18px 0}.p-body{padding:18px}.p-foot{padding:14px 18px}.kpi{padding:20px}}
+
+/* Stack */
+.stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line)}
+@media (max-width:760px){.stack{grid-template-columns:minmax(0,1fr)}}
+.stack div{padding:20px 22px 20px 0;border-bottom:1px solid var(--line);min-width:0}
+.stack div:nth-child(even){padding-left:22px;border-left:1px solid var(--line)}
+@media (max-width:760px){.stack div:nth-child(even){padding-left:0;border-left:0}}
+.stack h3{font:500 .72rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.stack p{display:flex;flex-wrap:wrap;gap:6px}
+.chip.key{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+
+/* Education + contact */
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+@media (max-width:760px){.duo{grid-template-columns:minmax(0,1fr)}}
+.edu .sec-head{grid-template-columns:minmax(0,1fr)}
+.edu-item+.edu-item{margin-top:20px}
+.edu h3{font-size:1.15rem;font-weight:700}
+.edu p{color:var(--muted);margin-top:4px}
+.langs{display:grid;gap:10px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.lang-row{display:grid;grid-template-columns:7em minmax(0,1fr) 4.5em;gap:12px;align-items:center;font-size:.93rem}
+.lang-row .track{height:6px}
+.lang-row .fill{background:var(--accent)}
+.lang-row > span:last-child{font:500 .76rem var(--f-mono);color:var(--muted);text-align:right}
+.contact{background:var(--ink);color:var(--bg);border-radius:14px;padding:28px;align-self:start}
+.contact h3{font-size:1.6rem;font-weight:700}
+.contact p{margin-top:8px;opacity:.8}
+.contact .links{display:grid;margin-top:20px}
+.contact a,.mail{color:var(--bg);font-family:var(--f-mono);font-size:.88rem;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid color-mix(in srgb,var(--bg) 22%,transparent);text-decoration:none;overflow-wrap:anywhere}
+.contact a:hover{color:var(--accent-soft)}
+.mail span{user-select:all}
+.copy{font:500 .72rem var(--f-mono);letter-spacing:.04em;background:transparent;color:var(--bg);border:1px solid color-mix(in srgb,var(--bg) 40%,transparent);border-radius:6px;padding:3px 9px;cursor:pointer;flex:none}
+.copy:hover{border-color:var(--bg)}
+footer{padding-block:28px 48px;font:400 .78rem var(--f-mono);color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+</style>
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top">kaulin<b>.</b>mindiola</a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#impacto"><span lang="es">Impacto</span><span lang="en">Impact</span></a>
+      <a href="#experiencia"><span lang="es">Experiencia</span><span lang="en">Experience</span></a>
+      <a href="#proyectos"><span lang="es">Proyectos</span><span lang="en">Projects</span></a>
+      <a href="#stack">Stack</a>
+      <a href="#contacto"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" id="btn-es" data-set="es" aria-pressed="true">ES</button>
+      <button type="button" id="btn-en" data-set="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <div>
+        <span class="status"><span lang="es">Disponible · abierto a remoto</span><span lang="en">Available · open to remote</span></span>
+        <h1>Kaulin Mindiola</h1>
+        <p class="role">Backend Engineer <span>/</span> Java · Spring Boot · AWS</p>
+        <p class="thesis" lang="es">Llevo sistemas distribuidos de punta a punta: diseño de API y datos, integraciones resilientes, eventos entre servicios y confiabilidad en producción. Mi trabajo se mide en <em>pagos que no se duplican, consultas que bajan de 6 s a 0,4 s</em> y campañas de alto tráfico sin incidentes.</p>
+        <p class="thesis" lang="en">I own distributed backend systems end to end: API and data design, resilient integrations, events between services and production reliability. My work shows up as <em>payments that never duplicate, queries that drop from 6 s to 0.4 s</em> and high-traffic campaigns with no incidents.</p>
+        <div class="cta">
+          <a class="btn primary" href="cv/Kaulin_Mindiola_CV.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+            <span lang="es">Ver CV</span><span lang="en">View resume</span></a>
+          <a class="btn" href="https://www.linkedin.com/in/kaulinmindiola/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+            LinkedIn</a>
+          <a class="btn" href="https://github.com/kaulinmindiola" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+            GitHub</a>
+          <a class="btn" href="#contacto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+            <span lang="es">Contacto</span><span lang="en">Contact</span></a>
+        </div>
+      </div>
+      <figure class="portrait">
+        <img src="assets/foto-perfil.jpg" alt="Kaulin Mindiola" width="520" height="650" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+        <div class="initials" hidden aria-hidden="true">KM</div>
+        <figcaption>Backend Engineer</figcaption>
+      </figure>
+    </div>
+    <dl class="facts">
+      <div><dt lang="es">Experiencia</dt><dt lang="en">Experience</dt><dd lang="es">~4 años</dd><dd lang="en">~4 years</dd></div>
+      <div><dt lang="es">Nivel</dt><dt lang="en">Level</dt><dd>Mid-level</dd></div>
+      <div><dt lang="es">Ubicación</dt><dt lang="en">Location</dt><dd lang="es">Colombia · remoto</dd><dd lang="en">Colombia · remote</dd></div>
+    </dl>
+  </div>
+
+  <!-- IMPACT -->
+  <section id="impacto">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><span lang="es">Impacto en producción</span><span lang="en">Production impact</span></h2>
+        <p lang="es">Resultados en EFFICODE sobre una plataforma order-to-cash de 6 microservicios construida para un cliente. Cifras aproximadas; el código y el cliente son confidenciales.</p>
+        <p lang="en">Results at EFFICODE on a 6-microservice order-to-cash platform built for a client. Approximate figures; the code and client are confidential.</p>
+      </div>
+
+      <div class="impact">
+        <article class="kpi">
+          <div class="label" lang="es">Rendimiento</div><div class="label" lang="en">Performance</div>
+          <div class="big">15×<small lang="es">más rápido</small><small lang="en">faster</small></div>
+          <h3 lang="es">Latencia p95 del listado de órdenes</h3><h3 lang="en">p95 latency, order listing endpoint</h3>
+          <div class="cmp" role="img" aria-label="p95: 6 s antes, 0,4 s después">
+            <div class="cmp-row"><span lang="es">antes</span><span lang="en">before</span><div class="track"><div class="fill" style="width:100%"></div></div><b>~6 s</b></div>
+            <div class="cmp-row"><span lang="es">después</span><span lang="en">after</span><div class="track"><div class="fill after" style="width:6.67%"></div></div><b lang="es">~0,4 s</b><b lang="en">~0.4 s</b></div>
+          </div>
+          <p lang="es">Sobre ~2 millones de filas, con optimización de consultas e índices, paginación y caché.</p>
+          <p lang="en">Over ~2 million rows, through query and index optimization, pagination and caching.</p>
+        </article>
+
+        <article class="kpi">
+          <div class="label" lang="es">Confiabilidad</div><div class="label" lang="en">Reliability</div>
+          <div class="big">~40<small>min</small></div>
+          <h3 lang="es">Incidente resuelto y flujo de pagos rediseñado</h3><h3 lang="en">Incident resolved, payment flow redesigned</h3>
+          <p lang="es">Agotamiento del pool de conexiones bajo 3× de tráfico. Después rediseñé el flujo y la siguiente campaña de alto tráfico corrió sin incidentes:</p>
+          <p lang="en">Connection pool exhaustion under 3× traffic. I then redesigned the flow and the next high-traffic campaign ran with no incidents:</p>
+          <div class="steps"><span lang="es">llamadas externas fuera de la transacción</span><span lang="en">external calls outside the transaction</span><span>circuit breaker</span><span lang="es">reintentos idempotentes</span><span lang="en">idempotent retries</span><span lang="es">confirmación por eventos</span><span lang="en">event-driven confirmation</span></div>
+        </article>
+
+        <article class="kpi">
+          <div class="label" lang="es">Automatización</div><div class="label" lang="en">Automation</div>
+          <div class="big">−90%<small lang="es">esfuerzo</small><small lang="en">effort</small></div>
+          <h3 lang="es">Conciliación diaria de pagos automatizada</h3><h3 lang="en">Daily payment reconciliation automated</h3>
+          <div class="cmp" role="img" aria-label="Horas por semana de finanzas: 10 antes, 1 después">
+            <div class="cmp-row"><span lang="es">antes</span><span lang="en">before</span><div class="track"><div class="fill" style="width:100%"></div></div><b lang="es">~10 h/sem</b><b lang="en">~10 h/wk</b></div>
+            <div class="cmp-row"><span lang="es">después</span><span lang="en">after</span><div class="track"><div class="fill after" style="width:10%"></div></div><b lang="es">~1 h/sem</b><b lang="en">~1 h/wk</b></div>
+          </div>
+          <p lang="es">Horas semanales que el equipo de finanzas dedicaba a conciliar pagos.</p>
+          <p lang="en">Weekly hours the finance team spent reconciling payments.</p>
+        </article>
+
+        <article class="kpi">
+          <div class="label" lang="es">Modernización</div><div class="label" lang="en">Modernization</div>
+          <div class="ver"><s>Java 11</s><i>→</i><strong>Java 17</strong></div>
+          <div class="ver"><s>Spring Boot 2.7</s><i>→</i><strong>Spring Boot 3.2</strong></div>
+          <h3 lang="es">Migración servicio por servicio</h3><h3 lang="en">Service-by-service migration</h3>
+          <div class="cmp cov" role="img" aria-label="Cobertura de pruebas aproximada 78%">
+            <div class="cmp-row"><span lang="es">cobertura</span><span lang="en">coverage</span><div class="track"><div class="fill after" style="width:78%"></div></div><b>~78%</b></div>
+          </div>
+          <p lang="es">Respaldada por pruebas de integración en cada servicio migrado.</p>
+          <p lang="en">Backed by integration tests on every migrated service.</p>
+        </article>
+      </div>
+      <div class="context">
+        <span lang="es">6 microservicios</span><span lang="en">6 microservices</span>
+        <span lang="es">Dueño técnico de órdenes y pagos</span><span lang="en">Technical owner of orders &amp; payments</span>
+        <span lang="es">Equipo Scrum de 9 personas</span><span lang="en">9-person Scrum team</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experiencia">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><span lang="es">Experiencia</span><span lang="en">Experience</span></h2>
+        <p lang="es">EFFICODE, empresa de servicios de software. Diseño, construcción y evolución de sistemas distribuidos para organizaciones cliente.</p>
+        <p lang="en">EFFICODE, a software services company. Designing, building and evolving distributed systems for client organizations.</p>
+      </div>
+      <div class="timeline">
+        <div class="role-row">
+          <div class="when"><strong>EFFICODE</strong>Jul 2023 – Sep 2026</div>
+          <div>
+            <h3>Backend Developer · Mid-Level</h3>
+            <p class="sub" lang="es">Dueño técnico de los módulos de órdenes y pagos de una plataforma order-to-cash de 6 microservicios, en un equipo Scrum de 9 personas.</p>
+            <p class="sub" lang="en">Technical owner of the orders and payments modules of a 6-microservice order-to-cash platform, in a 9-person Scrum team.</p>
+            <div class="cases">
+              <div class="case">
+                <div class="label" lang="es">Modernización</div><div class="label" lang="en">Modernization</div>
+                <p lang="es">Lideré la migración de <strong>Java 11 / Spring Boot 2.7 a Java 17 / Spring Boot 3.2</strong>, servicio por servicio, respaldada por pruebas de integración y ~78% de cobertura.</p>
+                <p lang="en">Led the migration from <strong>Java 11 / Spring Boot 2.7 to Java 17 / Spring Boot 3.2</strong>, service by service, backed by integration tests and ~78% coverage.</p>
+              </div>
+              <div class="case">
+                <div class="label" lang="es">Confiabilidad</div><div class="label" lang="en">Reliability</div>
+                <p lang="es">Resolví en ~40 min un incidente por <strong>agotamiento del pool de conexiones</strong> bajo 3× de tráfico. Rediseñé el flujo de pagos con llamadas externas fuera de la transacción, circuit breaker, reintentos idempotentes y confirmación por eventos. La siguiente campaña de alto tráfico corrió sin incidentes.</p>
+                <p lang="en">Resolved a <strong>connection pool exhaustion</strong> incident under 3× traffic in ~40 min. Redesigned the payment flow with external calls outside transactions, a circuit breaker, idempotent retries and event-driven confirmation. The next high-traffic campaign ran with no incidents.</p>
+              </div>
+              <div class="case">
+                <div class="label" lang="es">Rendimiento</div><div class="label" lang="en">Performance</div>
+                <p lang="es">Bajé la <strong>latencia p95 del listado de órdenes de ~6 s a ~0,4 s</strong> sobre ~2 millones de filas, con optimización de consultas e índices, paginación y caché.</p>
+                <p lang="en">Cut <strong>p95 latency of the order listing from ~6 s to ~0.4 s</strong> over ~2 million rows, through query and index optimization, pagination and caching.</p>
+              </div>
+              <div class="case">
+                <div class="label" lang="es">Automatización</div><div class="label" lang="en">Automation</div>
+                <p lang="es">Automaticé la <strong>conciliación diaria de pagos</strong>: el esfuerzo de finanzas pasó de ~10 h a ~1 h por semana.</p>
+                <p lang="en">Automated <strong>daily payment reconciliation</strong>, cutting finance effort from ~10 h to ~1 h per week.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="role-row">
+          <div class="when"><strong>EFFICODE</strong>Jul 2022 – Jun 2023</div>
+          <div>
+            <h3>Backend Developer · Junior</h3>
+            <div class="cases">
+              <div class="case">
+                <div class="label" lang="es">Órdenes</div><div class="label" lang="en">Orders</div>
+                <p lang="es">Desarrollé APIs REST y lógica de negocio del dominio de órdenes, incluido un <strong>endpoint idempotente de creación de órdenes</strong> que eliminó los pedidos duplicados por reintentos del cliente. Con pruebas unitarias y de integración y revisión de pull requests.</p>
+                <p lang="en">Built REST APIs and business logic for the orders domain, including an <strong>idempotent order-creation endpoint</strong> that eliminated duplicate orders on client retries. With unit and integration tests and pull request reviews.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="proyectos">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><span lang="es">Proyectos públicos</span><span lang="en">Public projects</span></h2>
+        <p lang="es">Estos tres sistemas reproducen, con código que se puede revisar, los mismos problemas que resolví en producción. Cada uno termina donde sus pruebas lo demuestran.</p>
+        <p lang="en">These three systems reproduce, with code you can review, the same problems I solved in production. Each one stops where its tests prove the point.</p>
+      </div>
+
+      <div class="projects">
+        <article class="project">
+          <div class="p-top">
+            <div class="p-meta"><span class="p-axis"><span lang="es">Transacciones y concurrencia</span><span lang="en">Transactions &amp; concurrency</span></span><span class="pill done" lang="es">Completado</span><span class="pill done" lang="en">Completed</span></div>
+            <h3>FluxPay - Payment Gateway Engine</h3>
+            <p class="p-lead" lang="es">Núcleo transaccional que procesa transferencias entre cuentas. Muchas solicitudes simultáneas sobre la misma cuenta, o un reintento del cliente, nunca deben producir un saldo incorrecto ni un cobro doble.</p>
+            <p class="p-lead" lang="en">A transactional core that processes transfers between accounts. Many simultaneous requests on the same account, or a client retry, must never produce a wrong balance or a double charge.</p>
+            <p class="p-link" lang="es">Relacionado con el endpoint idempotente de órdenes y los reintentos idempotentes del flujo de pagos.</p>
+            <p class="p-link" lang="en">Related to the idempotent order endpoint and the idempotent retries in the payment flow.</p>
+          </div>
+          <div class="p-body">
+            <div>
+              <div class="label" lang="es">Decisiones técnicas</div><div class="label" lang="en">Technical decisions</div>
+              <ul class="decisions" lang="es">
+                <li><strong>Bloqueo pesimista</strong> (<span class="mono">SELECT … FOR UPDATE</span>) sobre las cuentas involucradas, en orden fijo para evitar deadlocks.</li>
+                <li><strong>Idempotencia real</strong> con <span class="mono">Idempotency-Key</span> en Redis: un reintento devuelve la respuesta original sin ejecutar de nuevo.</li>
+                <li><strong>Resiliencia</strong> con Resilience4j para que una dependencia lenta no tumbe el servicio.</li>
+                <li><strong>Arquitectura hexagonal</strong>: el dominio no conoce Spring ni JPA.</li>
+              </ul>
+              <ul class="decisions" lang="en">
+                <li><strong>Pessimistic locking</strong> (<span class="mono">SELECT … FOR UPDATE</span>) on the accounts involved, in a fixed order to prevent deadlocks.</li>
+                <li><strong>Real idempotency</strong> with an <span class="mono">Idempotency-Key</span> in Redis: a retry returns the original response without executing again.</li>
+                <li><strong>Resilience</strong> with Resilience4j so a slow dependency can't take the service down.</li>
+                <li><strong>Hexagonal architecture</strong>: the domain knows nothing about Spring or JPA.</li>
+              </ul>
+              <div class="flow"><span>POST /transfers</span><i>→</i><span>Idempotency-Key</span><i>→</i><span>FOR UPDATE</span><i>→</i><span>ACID commit</span></div>
+            </div>
+            <div class="term" role="img" aria-label="Pruebas de integración">
+              <span class="row cmd">$ ./mvnw verify</span>
+              <span class="row"><span class="pass">✓</span> <span lang="es">transferencias concurrentes → saldo consistente, sin sobregiro</span><span lang="en">concurrent transfers → consistent balance, no overdraft</span></span>
+              <span class="row"><span class="pass">✓</span> <span lang="es">misma Idempotency-Key ×2 → una sola transferencia</span><span lang="en">same Idempotency-Key ×2 → a single transfer</span></span>
+              <span class="row"><span class="pass">✓</span> <span lang="es">fallo a mitad de la operación → rollback completo</span><span lang="en">failure mid-operation → full rollback</span></span>
+              <span class="row"><span class="pass">✓</span> <span lang="es">dependencia caída → circuit breaker abierto, error controlado</span><span lang="en">dependency down → circuit breaker open, controlled error</span></span>
+              <span class="sum">Testcontainers · PostgreSQL · Redis</span>
+            </div>
+          </div>
+          <div class="p-foot">
+            <span class="chip">Java 21</span><span class="chip">Spring Boot 3</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Resilience4j</span><span class="chip">Docker</span>
+            <a class="repo" href="https://github.com/kaulinmindiola/Payment-gateway-engine" target="_blank" rel="noopener"><span lang="es">Ver repositorio</span><span lang="en">View repository</span> ↗</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="p-top">
+            <div class="p-meta"><span class="p-axis"><span lang="es">Eventos y consistencia eventual</span><span lang="en">Events &amp; eventual consistency</span></span><span class="pill done" lang="es">Completado</span><span class="pill done" lang="en">Completed</span></div>
+            <h3>StreamLedger - Resilient Order Pipeline</h3>
+            <p class="p-lead" lang="es">Servicio de órdenes que dispara procesamiento asíncrono (reserva de inventario y notificación). Tiene que seguir siendo consistente cuando el trabajo se reparte entre procesos que no comparten transacción.</p>
+            <p class="p-lead" lang="en">An order service that triggers asynchronous processing (inventory reservation and notification). It must stay consistent when work is split across processes that don't share a transaction.</p>
+            <p class="p-link" lang="es">Relacionado con la confirmación de pagos por eventos entre microservicios.</p>
+            <p class="p-link" lang="en">Related to event-driven payment confirmation between microservices.</p>
+          </div>
+          <div class="p-body">
+            <div>
+              <div class="label" lang="es">Decisiones técnicas</div><div class="label" lang="en">Technical decisions</div>
+              <ul class="decisions" lang="es">
+                <li><strong>Transactional Outbox</strong>: la orden y su evento se guardan en la misma transacción. Se elimina la doble escritura base de datos + broker.</li>
+                <li><strong>Consumidor idempotente</strong> con tabla <span class="mono">processed_events</span>: entrega <em>at-least-once</em> + deduplicación = efecto único.</li>
+                <li><strong>Dead Letter Queue</strong>: un mensaje que falla N veces se aparta para revisión. No se reintenta sin fin ni se pierde.</li>
+                <li><strong>Límite consciente</strong>: no se promete <em>exactly-once</em>; la decisión queda documentada en el README.</li>
+              </ul>
+              <ul class="decisions" lang="en">
+                <li><strong>Transactional Outbox</strong>: the order and its event are stored in the same transaction, removing the database + broker dual write.</li>
+                <li><strong>Idempotent consumer</strong> with a <span class="mono">processed_events</span> table: <em>at-least-once</em> delivery + deduplication = effect applied once.</li>
+                <li><strong>Dead Letter Queue</strong>: a message that fails N times is set aside for review. Never retried forever, never lost.</li>
+                <li><strong>Deliberate limit</strong>: no <em>exactly-once</em> promise; the decision is documented in the README.</li>
+              </ul>
+              <div class="flow"><span>Order + Outbox</span><i>→</i><span>Publisher</span><i>→</i><span>Kafka</span><i>→</i><span>Consumer</span><i>⤳</i><span>DLQ</span></div>
+            </div>
+            <div class="term" role="img" aria-label="Pruebas de integración">
+              <span class="row cmd">$ docker compose up -d &amp;&amp; ./mvnw verify</span>
+              <span class="row"><span class="pass">✓</span> <span lang="es">mismo evento entregado ×2 → inventario reservado una vez</span><span lang="en">same event delivered ×2 → inventory reserved once</span></span>
+              <span class="row"><span class="pass">✓</span> <span lang="es">broker caído tras crear la orden → el evento se publica al volver</span><span lang="en">broker down after order created → event published on recovery</span></span>
+              <span class="row"><span class="pass">✓</span> <span lang="es">mensaje que siempre falla → termina en DLQ tras N reintentos</span><span lang="en">always-failing message → lands in DLQ after N retries</span></span>
+              <span class="sum">order-service · consumer · broker · postgres</span>
+            </div>
+          </div>
+          <div class="p-foot">
+            <span class="chip">Java 21</span><span class="chip">Spring Boot 4</span><span class="chip">Kafka</span><span class="chip">PostgreSQL</span><span class="chip">Docker Compose</span><span class="chip">Testcontainers</span>
+            <a class="repo" href="https://github.com/kaulinmindiola/Resilient-Order-Pipeline" target="_blank" rel="noopener"><span lang="es">Ver repositorio</span><span lang="en">View repository</span> ↗</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="p-top">
+            <div class="p-meta"><span class="p-axis"><span lang="es">Seguridad y autorización</span><span lang="en">Security &amp; authorization</span></span><span class="pill wip" lang="es">En desarrollo</span><span class="pill wip" lang="en">In progress</span></div>
+            <h3>AuthCore - Identity Access Service</h3>
+            <p class="p-lead" lang="es">Autenticación y autorización para una API multi-workspace. Un usuario con token válido nunca debe leer datos de un workspace al que no pertenece, y una sesión robada debe poder cortarse.</p>
+            <p class="p-lead" lang="en">Authentication and authorization for a multi-workspace API. A user with a valid token must never read data from a workspace they don't belong to, and a stolen session must be revocable.</p>
+            <p class="p-link" lang="es">Relacionado con Spring Security, OAuth2 y JWT en servicios de clientes.</p>
+            <p class="p-link" lang="en">Related to Spring Security, OAuth2 and JWT in client services.</p>
+          </div>
+          <div class="p-body">
+            <div>
+              <div class="label" lang="es">Decisiones técnicas</div><div class="label" lang="en">Technical decisions</div>
+              <ul class="decisions" lang="es">
+                <li><strong>JWT de vida corta + refresh token con rotación</strong>; si se reutiliza un refresh token, se invalida toda la familia de la sesión.</li>
+                <li><strong>RBAC por workspace</strong> (<span class="mono">OWNER · ADMIN · MEMBER · VIEWER</span>), no roles globales.</li>
+                <li><strong>Aislamiento por tenant</strong> aplicado en cada consulta, no solo en el controlador.</li>
+                <li><strong>Rate limiting</strong> en login con Bucket4j y errores con formato RFC 7807.</li>
+              </ul>
+              <ul class="decisions" lang="en">
+                <li><strong>Short-lived JWT + rotating refresh tokens</strong>; reusing a refresh token revokes the whole session family.</li>
+                <li><strong>Per-workspace RBAC</strong> (<span class="mono">OWNER · ADMIN · MEMBER · VIEWER</span>), not global roles.</li>
+                <li><strong>Tenant isolation</strong> enforced on every query, not only in the controller.</li>
+                <li><strong>Rate limiting</strong> on login with Bucket4j, and RFC 7807 error responses.</li>
+              </ul>
+              <div class="flow"><span>/auth/login</span><i>→</i><span>access + refresh</span><i>→</i><span>workspace role</span><i>→</i><span>tenant filter</span></div>
+            </div>
+            <div class="term" role="img" aria-label="Pruebas objetivo">
+              <span class="row cmd">$ ./mvnw verify   <span lang="es"># criterio de terminado</span><span lang="en"># definition of done</span></span>
+              <span class="row"><span class="wipc">○</span> <span lang="es">MEMBER del workspace Y lee recurso de X → 403</span><span lang="en">MEMBER of workspace Y reads resource in X → 403</span></span>
+              <span class="row"><span class="wipc">○</span> <span lang="es">refresh token reutilizado → sesión completa revocada</span><span lang="en">reused refresh token → whole session revoked</span></span>
+              <span class="row"><span class="wipc">○</span> <span lang="es">6.º login fallido en la ventana → 429</span><span lang="en">6th failed login in window → 429</span></span>
+              <span class="sum">Spring Security 6 · Redis · Testcontainers</span>
+            </div>
+          </div>
+          <div class="p-foot">
+            <span class="chip">Spring Security 6</span><span class="chip">JWT</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Bucket4j</span><span class="chip">Testcontainers</span>
+            <a class="repo" href="https://github.com/kaulinmindiola/Identity-Access-Service" target="_blank" rel="noopener"><span lang="es">Ver avance</span><span lang="en">View progress</span> ↗</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Stack</h2>
+    </div>
+    <div class="stack">
+      <div>
+        <h3>Backend &amp; APIs</h3>
+        <p><span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">Spring Security</span><span class="chip">OAuth2</span><span class="chip">JWT</span><span class="chip">Spring Data JPA / Hibernate</span><span class="chip">REST</span><span class="chip">OpenAPI</span><span class="chip">Maven</span></p>
+      </div>
+      <div>
+        <h3><span lang="es">Arquitectura y diseño</span><span lang="en">Architecture &amp; design</span></h3>
+        <p><span class="chip">Microservices</span><span class="chip">Hexagonal / Clean</span><span class="chip">SOLID</span><span class="chip">DDD</span><span class="chip">Transactional Outbox</span><span class="chip">Idempotency</span><span class="chip">Resilience4j</span></p>
+      </div>
+      <div>
+        <h3><span lang="es">Datos y nube</span><span lang="en">Data &amp; cloud</span></h3>
+        <p><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Flyway</span><span class="chip">AWS ECS Fargate</span><span class="chip">RDS</span><span class="chip">S3</span><span class="chip">SQS</span><span class="chip">CloudWatch</span><span class="chip">Secrets Manager</span></p>
+      </div>
+      <div>
+        <h3>DevOps &amp; testing</h3>
+        <p><span class="chip">Docker</span><span class="chip">GitHub Actions</span><span class="chip">Git</span><span class="chip">Micrometer / Actuator</span><span class="chip">JUnit 5</span><span class="chip">Mockito</span><span class="chip">Testcontainers</span><span class="chip">JaCoCo</span><span class="chip">SonarQube</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- EDUCATION + CONTACT -->
+  <section id="contacto">
+    <div class="wrap duo">
+      <div class="edu">
+        <div class="sec-head"><h2><span lang="es">Formación</span><span lang="en">Education</span></h2></div>
+        <div class="edu-item">
+          <h3><span lang="es">Ingeniería de Sistemas</span><span lang="en">B.Sc. Systems Engineering</span></h3>
+          <p>Universidad de La Guajira · Colombia</p>
+        </div>
+        <div class="edu-item">
+          <h3><span lang="es">Diplomado en Desarrollo de Software</span><span lang="en">Software Development Diploma</span></h3>
+          <p>MinTIC &amp; Universidad del Norte · Misión TIC</p>
+        </div>
+        <div class="langs">
+          <div class="label" lang="es">Idiomas</div><div class="label" lang="en">Languages</div>
+          <div class="lang-row"><span lang="es">Español</span><span lang="en">Spanish</span><div class="track"><div class="fill" style="width:100%"></div></div><span lang="es">Nativo</span><span lang="en">Native</span></div>
+          <div class="lang-row"><span lang="es">Inglés</span><span lang="en">English</span><div class="track"><div class="fill" style="width:50%"></div></div><span>B1</span></div>
+        </div>
+      </div>
+      <div class="contact">
+        <h3><span lang="es">Hablemos</span><span lang="en">Let's talk</span></h3>
+        <p lang="es">Busco un rol backend con Java y Spring Boot, remoto o híbrido.</p>
+        <p lang="en">Looking for a backend role with Java and Spring Boot, remote or hybrid.</p>
+        <div class="links">
+          <div class="mail"><span id="mail">kaulinmindiola@gmail.com</span><button type="button" class="copy" id="copy-mail"><span lang="es">Copiar</span><span lang="en">Copy</span></button></div>
+          <a href="https://www.linkedin.com/in/kaulinmindiola/" target="_blank" rel="noopener"><span>linkedin.com/in/kaulinmindiola</span><span>↗</span></a>
+          <a href="https://github.com/kaulinmindiola" target="_blank" rel="noopener"><span>github.com/kaulinmindiola</span><span>↗</span></a>
+          <a href="cv/Kaulin_Mindiola_CV.pdf" target="_blank" rel="noopener"><span lang="es">CV en PDF</span><span lang="en">Resume (PDF)</span><span>↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Kaulin Camilo Mindiola Gonzalez</span><span>Java · Spring Boot · PostgreSQL · AWS</span></div></footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  function setLang(l){
+    root.dataset.lang=l; root.lang=l;
+    document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.set===l))});
+    try{localStorage.setItem('lang',l)}catch(e){}
+  }
+  var start='es';
+  try{var s=localStorage.getItem('lang'); if(s==='en'||s==='es') start=s}catch(e){}
+  if(location.hash==='#en') start='en'; else if(location.hash==='#es') start='es';
+  setLang(start);
+  document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.set)})});
+  var cb=document.getElementById('copy-mail'), mail=document.getElementById('mail');
+  function selectMail(){var r=document.createRange();r.selectNodeContents(mail);var sel=getSelection();sel.removeAllRanges();sel.addRange(r)}
+  cb.addEventListener('click',function(){
+    var orig=cb.innerHTML, en=root.dataset.lang==='en';
+    function done(ok){cb.textContent= ok ? (en?'Copied':'Copiado') : (en?'Selected':'Seleccionado'); setTimeout(function(){cb.innerHTML=orig},1800)}
+    try{navigator.clipboard.writeText(mail.textContent).then(function(){done(true)},function(){selectMail();done(false)})}catch(e){selectMail();done(false)}
+  });
+})();
+</script>
+</body>
+</html>

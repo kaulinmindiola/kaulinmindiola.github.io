@@ -393,7 +393,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
       <div class="projects">
         <article class="project">
           <div class="p-top">
-            <div class="p-meta"><span class="p-axis"><span lang="es">Transacciones y concurrencia</span><span lang="en">Transactions &amp; concurrency</span></span><span class="pill done" lang="es">Completado</span><span class="pill done" lang="en">Completed</span></div>
+            <div class="p-meta"><span class="p-axis"><span lang="es">Transacciones y concurrencia</span><span lang="en">Transactions &amp; concurrency</span></span></div>
             <h3>FluxPay - Payment Gateway Engine</h3>
             <p class="p-lead" lang="es">Núcleo transaccional que procesa transferencias entre cuentas. Muchas solicitudes simultáneas sobre la misma cuenta, o un reintento del cliente, nunca deben producir un saldo incorrecto ni un cobro doble.</p>
             <p class="p-lead" lang="en">A transactional core that processes transfers between accounts. Many simultaneous requests on the same account, or a client retry, must never produce a wrong balance or a double charge.</p>
@@ -434,7 +434,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
 
         <article class="project">
           <div class="p-top">
-            <div class="p-meta"><span class="p-axis"><span lang="es">Eventos y consistencia eventual</span><span lang="en">Events &amp; eventual consistency</span></span><span class="pill done" lang="es">Completado</span><span class="pill done" lang="en">Completed</span></div>
+            <div class="p-meta"><span class="p-axis"><span lang="es">Eventos y consistencia eventual</span><span lang="en">Events &amp; eventual consistency</span></span></div>
             <h3>StreamLedger - Resilient Order Pipeline</h3>
             <p class="p-lead" lang="es">Servicio de órdenes que dispara procesamiento asíncrono (reserva de inventario y notificación). Tiene que seguir siendo consistente cuando el trabajo se reparte entre procesos que no comparten transacción.</p>
             <p class="p-lead" lang="en">An order service that triggers asynchronous processing (inventory reservation and notification). It must stay consistent when work is split across processes that don't share a transaction.</p>
@@ -474,41 +474,44 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
 
         <article class="project">
           <div class="p-top">
-            <div class="p-meta"><span class="p-axis"><span lang="es">Seguridad y autorización</span><span lang="en">Security &amp; authorization</span></span><span class="pill wip" lang="es">En desarrollo</span><span class="pill wip" lang="en">In progress</span></div>
-            <h3>AuthCore - Identity Access Service</h3>
-            <p class="p-lead" lang="es">Autenticación y autorización para una API multi-workspace. Un usuario con token válido nunca debe leer datos de un workspace al que no pertenece, y una sesión robada debe poder cortarse.</p>
-            <p class="p-lead" lang="en">Authentication and authorization for a multi-workspace API. A user with a valid token must never read data from a workspace they don't belong to, and a stolen session must be revocable.</p>
-            <p class="p-link" lang="es">Relacionado con Spring Security, OAuth2 y JWT en servicios de clientes.</p>
-            <p class="p-link" lang="en">Related to Spring Security, OAuth2 and JWT in client services.</p>
+            <div class="p-meta">
+              <span class="p-axis"><span lang="es">Identidad, accesos y notificaciones</span><span lang="en">Identity, access &amp; notifications</span></span>
+              <span class="pill wip" lang="es">En desarrollo</span><span class="pill wip" lang="en">In progress</span>
+            </div>
+            <h3>Warden - Workspace Identity, Access &amp; Notification Platform</h3>
+            <p class="p-lead" lang="es">Plataforma backend que autentica usuarios, autoriza accesos por workspace y entrega notificaciones de forma altamente fiable. Asegura contención de sesiones robadas, aislamiento de datos multi-tenant en 3 capas y procesamiento asíncrono con tolerancia a fallos.</p>
+            <p class="p-lead" lang="en">Backend platform that authenticates users, authorizes per-workspace access, and reliably delivers notifications. Ensures stolen session containment, 3-layer multi-tenant data isolation, and fault-tolerant async processing.</p>
+            <p class="p-link" lang="es">Relacionado con Spring Security, arquitectura modular, aislamientos por tenant y resiliencia de mensajería.</p>
+            <p class="p-link" lang="en">Related to Spring Security, modular architecture, tenant isolation, and messaging resilience.</p>
           </div>
           <div class="p-body">
             <div>
               <div class="label" lang="es">Decisiones técnicas</div><div class="label" lang="en">Technical decisions</div>
               <ul class="decisions" lang="es">
-                <li><strong>JWT de vida corta + refresh token con rotación</strong>; si se reutiliza un refresh token, se invalida toda la familia de la sesión.</li>
-                <li><strong>RBAC por workspace</strong> (<span class="mono">OWNER · ADMIN · MEMBER · VIEWER</span>), no roles globales.</li>
-                <li><strong>Aislamiento por tenant</strong> aplicado en cada consulta, no solo en el controlador.</li>
-                <li><strong>Rate limiting</strong> en login con Bucket4j y errores con formato RFC 7807.</li>
+                <li><strong>Monolito modular verificado</strong> con Spring Modulith y ArchUnit para evitar acoplamientos no deseados.</li>
+                <li><strong>Aislamiento en 3 capas</strong>: interceptor HTTP, filtro Hibernate y PostgreSQL Row Level Security (RLS) directo en la base de datos.</li>
+                <li><strong>Sesiones e identidad segura</strong>: firmas con algoritmos asimétricos (ES256), rotación de refresh tokens con detección de reutilización y almacenamiento efímero en Redis.</li>
+                <li><strong>Entrega fiable de emails</strong>: patrón Transactional Outbox + reintentos asíncronos, circuit breaker, failover de proveedores y DLQ.</li>
               </ul>
               <ul class="decisions" lang="en">
-                <li><strong>Short-lived JWT + rotating refresh tokens</strong>; reusing a refresh token revokes the whole session family.</li>
-                <li><strong>Per-workspace RBAC</strong> (<span class="mono">OWNER · ADMIN · MEMBER · VIEWER</span>), not global roles.</li>
-                <li><strong>Tenant isolation</strong> enforced on every query, not only in the controller.</li>
-                <li><strong>Rate limiting</strong> on login with Bucket4j, and RFC 7807 error responses.</li>
+                <li><strong>Verified modular monolith</strong> using Spring Modulith and ArchUnit to prevent unwanted coupling.</li>
+                <li><strong>3-layer tenant isolation</strong>: HTTP interceptor, Hibernate filter, and PostgreSQL Row Level Security (RLS) directly in DB.</li>
+                <li><strong>Secure identity &amp; sessions</strong>: ES256 signatures, rotating refresh tokens with reuse detection, and Redis ephemeral storage.</li>
+                <li><strong>Reliable email delivery</strong>: Transactional Outbox pattern + async retries, circuit breaker, provider failover, and DLQ.</li>
               </ul>
-              <div class="flow"><span>/auth/login</span><i>→</i><span>access + refresh</span><i>→</i><span>workspace role</span><i>→</i><span>tenant filter</span></div>
+              <div class="flow"><span>/auth/login</span><i>→</i><span>ES256 JWT + Refresh</span><i>→</i><span>RLS Tenant Filter</span><i>→</i><span>Outbox Event</span><i>⤳</i><span>DLQ</span></div>
             </div>
-            <div class="term" role="img" aria-label="Pruebas objetivo">
-              <span class="row cmd">$ ./mvnw verify   <span lang="es"># criterio de terminado</span><span lang="en"># definition of done</span></span>
-              <span class="row"><span class="wipc">○</span> <span lang="es">MEMBER del workspace Y lee recurso de X → 403</span><span lang="en">MEMBER of workspace Y reads resource in X → 403</span></span>
-              <span class="row"><span class="wipc">○</span> <span lang="es">refresh token reutilizado → sesión completa revocada</span><span lang="en">reused refresh token → whole session revoked</span></span>
-              <span class="row"><span class="wipc">○</span> <span lang="es">6.º login fallido en la ventana → 429</span><span lang="en">6th failed login in window → 429</span></span>
-              <span class="sum">Spring Security 6 · Redis · Testcontainers</span>
+            <div class="term" role="img" aria-label="Pruebas de integración y garantías de Warden">
+              <span class="row cmd">$ ./mvnw verify   <span lang="es"># criterio de terminado (definición de listo)</span><span lang="en"># definition of done</span></span>
+              <span class="row"><span class="wipc">○</span> <span lang="es">MEMBER de workspace Y intenta leer recurso de X → 403 / RLS bloquea</span><span lang="en">MEMBER of workspace Y tries to read resource in X → 403 / RLS blocked</span></span>
+              <span class="row"><span class="wipc">○</span> <span lang="es">Refresh token reutilizado → revoca familia completa de sesión en Redis</span><span lang="en">Reused refresh token → revokes entire session family in Redis</span></span>
+              <span class="row"><span class="wipc">○</span> <span lang="es">Proveedor principal de mail caído → failover a secundario + registro en DLQ</span><span lang="en">Primary mail provider down → failover to secondary + DLQ log</span></span>
+              <span class="sum">Spring Security 7 · PostgreSQL 17 RLS · Redis 8 · Testcontainers</span>
             </div>
           </div>
           <div class="p-foot">
-            <span class="chip">Spring Security 6</span><span class="chip">JWT</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Bucket4j</span><span class="chip">Testcontainers</span>
-            <a class="repo" href="https://github.com/kaulinmindiola/Identity-Access-Service" target="_blank" rel="noopener"><span lang="es">Ver avance</span><span lang="en">View progress</span> ↗</a>
+            <span class="chip">Java 21</span><span class="chip">Spring Boot 4</span><span class="chip">Spring Security 7</span><span class="chip">PostgreSQL 17 (RLS)</span><span class="chip">Redis 8</span><span class="chip">Testcontainers</span>
+            <a class="repo" href="https://github.com/kaulinmindiola/warden" target="_blank" rel="noopener"><span lang="es">Ver repositorio</span><span lang="en">View repository</span> ↗</a>
           </div>
         </article>
       </div>

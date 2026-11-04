@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Kaulin Mindiola · Backend</title>
-<meta name="description" content="Kaulin Mindiola, Backend Engineer Java y Spring Boot. ~4 años en sistemas distribuidos de órdenes y pagos: p95 de 6 s a 0,4 s, migración a Java 17 / Spring Boot 3.2, flujos de pago resilientes.">
+<title>Kaulin Mindiola · Backend Engineer</title>
+<meta name="description" content="Kaulin Mindiola, Backend Engineer con Java (Spring Boot) y Python (Django, FastAPI). Sistemas distribuidos confiables: idempotencia, eventos, multi-tenant. Pagos fallidos de 4,2 % a 0,8 %, p95 de 6 s a 0,4 s.">
 <meta name="author" content="Kaulin Camilo Mindiola Gonzalez">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Kaulin Mindiola · Backend Engineer (Java / Spring Boot)">
-<meta property="og:description" content="~4 años construyendo sistemas distribuidos de órdenes y pagos. Impacto en producción y proyectos públicos con pruebas de integración.">
+<meta property="og:title" content="Kaulin Mindiola · Backend Engineer (Java · Python)">
+<meta property="og:description" content="4 años construyendo y operando servicios backend en producción. Sistemas que siguen funcionando cuando algo falla.">
 <meta property="og:image" content="assets/foto-perfil.jpg">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#2340C8">
@@ -17,247 +17,298 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: proof-first reading order. Hero → production impact (to-scale before/after) → experience timeline → public projects as case files → stack → contact. One left-aligned 1040px column. */
 :root{
-  --bg:#F4F6F9; --surface:#FFFFFF; --ink:#111722; --muted:#566074; --line:#DCE1EA;
-  --accent:#2340C8; --accent-soft:#E6EBFB; --term:#0F1420; --term-ink:#D9E0EE; --term-dim:#7F8AA3;
-  --ok:#1C8A57; --ok-soft:#E2F3EA; --wip:#A86400; --wip-soft:#FBEFD9; --before:#A3ABBC;
-  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-  --f-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --bg:#F2F4F7; --surface:#FFFFFF; --ink:#0F1626; --muted:#55607A; --line:#D9DEE8;
+  --accent:#2340C8; --accent-soft:#E4E9FB; --on-accent:#fff;
+  --ok:#14804F; --ok-soft:#DFF2E8; --warn:#A85A00; --warn-soft:#FBEBD3; --bad:#C23B3B; --bad-soft:#F9E1E1;
+  --term:#0C1220; --term-ink:#D9E0EE; --term-dim:#7F8AA3; --before:#A3ABBC;
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0D1118; --surface:#151B26; --ink:#E8ECF4; --muted:#9AA4B8; --line:#263042;
-  --accent:#8EA4FF; --accent-soft:#1C2645; --term:#080B11; --term-ink:#D9E0EE; --term-dim:#6F7A92;
-  --ok:#5BD49A; --ok-soft:#12291F; --wip:#F0B357; --wip-soft:#2E2312; --before:#4A5468; color-scheme:dark }}
+  --bg:#0B1020; --surface:#131A2B; --ink:#E7EBF5; --muted:#98A3BC; --line:#243049;
+  --accent:#8FA5FF; --accent-soft:#1B2547; --on-accent:#0B1020;
+  --ok:#5BD49A; --ok-soft:#10281E; --warn:#F0B357; --warn-soft:#2E2312; --bad:#FF8A8A; --bad-soft:#341B1B;
+  --term:#070A12; --term-dim:#6F7A92; --before:#4A5468; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0D1118; --surface:#151B26; --ink:#E8ECF4; --muted:#9AA4B8; --line:#263042;
-  --accent:#8EA4FF; --accent-soft:#1C2645; --term:#080B11; --term-ink:#D9E0EE; --term-dim:#6F7A92;
-  --ok:#5BD49A; --ok-soft:#12291F; --wip:#F0B357; --wip-soft:#2E2312; --before:#4A5468; color-scheme:dark }
+  --bg:#0B1020; --surface:#131A2B; --ink:#E7EBF5; --muted:#98A3BC; --line:#243049;
+  --accent:#8FA5FF; --accent-soft:#1B2547; --on-accent:#0B1020;
+  --ok:#5BD49A; --ok-soft:#10281E; --warn:#F0B357; --warn-soft:#2E2312; --bad:#FF8A8A; --bad-soft:#341B1B;
+  --term:#070A12; --term-dim:#6F7A92; --before:#4A5468; color-scheme:dark}
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased}
 :root:not([data-lang="en"]) [lang="en"], :root[data-lang="en"] [lang="es"]{display:none!important}
+[hidden]{display:none!important}
+img{max-width:100%}
 a{color:var(--accent);text-underline-offset:3px}
-a:focus-visible, button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
-.wrap{max-width:1040px;margin:0 auto;padding-inline:20px}
-h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.12}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.1}
 p{margin:0}
 .mono{font-family:var(--f-mono)}
-.label{font:500 .7rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tag{font:500 .76rem var(--f-mono);color:var(--muted)}
 
-/* Top bar */
-.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.topbar .wrap{display:flex;align-items:center;gap:20px;height:56px}
-.brand{font-family:var(--f-mono);font-size:.82rem;color:var(--ink);text-decoration:none;font-weight:500;white-space:nowrap}
+/* progress + topbar */
+.progress{position:fixed;inset:0 0 auto 0;height:3px;z-index:20;background:transparent}
+.progress i{display:block;height:100%;width:0;background:var(--accent)}
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:18px;height:56px}
+.brand{font:500 .85rem var(--f-mono);color:var(--ink);text-decoration:none;white-space:nowrap}
 .brand b{color:var(--accent);font-weight:500}
-.nav{display:flex;gap:18px;margin-left:auto;font-size:.88rem}
-.nav a{color:var(--muted);text-decoration:none}
+.nav{display:flex;gap:4px;margin-left:auto;font-size:.88rem}
+.nav a{color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:999px;transition:color .15s,background .15s}
 .nav a:hover{color:var(--ink)}
-.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:2px;flex:none}
-.lang button{font:500 .74rem var(--f-mono);letter-spacing:.06em;border:0;background:transparent;color:var(--muted);padding:4px 10px;border-radius:999px;cursor:pointer}
-.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-@media (max-width:760px){.nav{display:none}.lang{margin-left:auto}}
+.nav a.on{color:var(--accent);background:var(--accent-soft)}
+.tools{display:flex;gap:8px;flex:none}
+.seg{display:flex;border:1px solid var(--line);border-radius:999px;padding:2px}
+.seg button,.icon-btn{font:500 .74rem var(--f-mono);border:0;background:transparent;color:var(--muted);padding:4px 10px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.icon-btn{border:1px solid var(--line);width:32px;height:32px;padding:0;display:grid;place-items:center;font-size:.95rem}
+.icon-btn:hover{color:var(--ink);border-color:var(--accent)}
+@media (max-width:820px){.nav{display:none}.tools{margin-left:auto}}
 
-/* Hero */
-.hero{padding-block:68px 8px}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:center}
+/* hero */
+.hero{padding-block:64px 12px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:44px;align-items:center}
+@media (max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:30px}}
 .status{display:inline-flex;align-items:center;gap:8px;font:500 .78rem var(--f-mono);color:var(--ok);background:var(--ok-soft);padding:5px 12px;border-radius:999px}
-.status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
-.hero h1{font-size:clamp(2.6rem,7.5vw,4.6rem);font-weight:800;letter-spacing:-.025em;margin-top:22px}
-.role{font-family:var(--f-mono);font-size:clamp(.9rem,2.2vw,1.02rem);color:var(--muted);margin-top:14px}
-.role span{color:var(--accent)}
-.thesis{font-size:clamp(1.12rem,2.5vw,1.36rem);line-height:1.5;max-width:33em;margin-top:26px}
-.thesis em{font-style:normal;background:linear-gradient(transparent 62%,var(--accent-soft) 62%)}
-.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
-.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.93rem;text-decoration:none;padding:10px 16px;border-radius:8px;border:1px solid var(--line);color:var(--ink);background:var(--surface);cursor:pointer;font-family:var(--f-body)}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
-.btn:hover{border-color:var(--accent)}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.hero h1{font-size:clamp(2.8rem,8vw,5rem);font-weight:800;letter-spacing:-.03em;margin-top:20px}
+.role{font:400 clamp(.88rem,2.2vw,1rem) var(--f-mono);color:var(--muted);margin-top:14px}
+.thesis{font-size:clamp(1.1rem,2.4vw,1.28rem);line-height:1.55;max-width:32em;margin-top:22px}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 .92rem var(--f-body);text-decoration:none;padding:10px 16px;border-radius:8px;border:1px solid var(--line);color:var(--ink);background:var(--surface);cursor:pointer;transition:border-color .15s,transform .15s}
+.btn:hover{border-color:var(--accent);transform:translateY(-1px)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .btn svg{width:16px;height:16px;flex:none}
-.portrait{width:clamp(180px,24vw,260px);aspect-ratio:4/5;max-width:100%;position:relative;margin:0}
-.portrait img,.portrait .initials{width:100%;height:100%;object-fit:cover;border-radius:14px;display:block;border:1px solid var(--line)}
-.portrait .initials{display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font:800 3.4rem var(--f-display);letter-spacing:-.03em}
-.portrait figcaption{position:absolute;left:12px;bottom:12px;font:500 .7rem var(--f-mono);background:var(--surface);color:var(--ink);border:1px solid var(--line);padding:3px 8px;border-radius:6px}
-@media (max-width:760px){.hero-grid{grid-template-columns:minmax(0,1fr);gap:26px}.portrait{order:-1;width:132px}.portrait figcaption{display:none}}
-.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:52px 0 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.portrait{width:92px;height:92px;margin:0 0 22px;border-radius:50%;overflow:hidden;border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line)}
+.portrait img,.portrait .initials{width:100%;height:100%;object-fit:cover;display:block}
+.portrait .initials{display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font:800 1.9rem var(--f-display)}
+
+.live{background:var(--term);color:var(--term-ink);border-radius:14px;border:1px solid color-mix(in srgb,var(--line) 60%,#000);box-shadow:0 24px 60px -28px rgba(15,22,38,.55);overflow:hidden}
+.live-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid #1D2638;font:400 .74rem var(--f-mono);color:var(--term-dim)}
+.live-bar i{width:9px;height:9px;border-radius:50%;background:#2A344A}
+.live-bar span{margin-left:8px}
+.live-body{padding:16px 18px 18px;font:400 .82rem/1.75 var(--f-mono);min-height:272px}
+.live-body .ln{display:block;min-height:1.75em;white-space:pre-wrap;opacity:0;transform:translateY(3px);transition:opacity .25s,transform .25s}
+.live-body .ln.in{opacity:1;transform:none}
+.c-dim{color:var(--term-dim)} .c-ok{color:#5BD49A} .c-warn{color:#F0B357} .c-acc{color:#9DB0FF} .c-bad{color:#FF8A8A}
+.cursor{display:inline-block;width:8px;height:1em;background:#9DB0FF;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:48px 0 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .facts div{padding:16px 18px 16px 0;min-width:0}
 .facts div+div{padding-left:18px;border-left:1px solid var(--line)}
-.facts dt{font:500 .7rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.facts dd{margin:4px 0 0;font-family:var(--f-display);font-weight:700;font-size:1.12rem}
+.facts dt{font:500 .74rem var(--f-mono);color:var(--muted)}
+.facts dd{margin:4px 0 0;font:700 1.1rem var(--f-display)}
 @media (max-width:760px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.facts div:nth-child(3){padding-left:0;border-left:0}.facts div:nth-child(n+3){border-top:1px solid var(--line)}}
 
-/* Sections */
-section{padding-block:60px}
-.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:12px 32px;align-items:end;margin-bottom:28px;padding-bottom:14px;border-bottom:2px solid var(--ink)}
-.sec-head h2{font-size:clamp(1.6rem,4vw,2.15rem);font-weight:700;letter-spacing:-.015em}
-.sec-head p{font-size:.92rem;color:var(--muted)}
+/* sections */
+section{padding-block:64px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:12px 32px;align-items:end;margin-bottom:30px;padding-bottom:14px;border-bottom:2px solid var(--ink)}
+.sec-head h2{font-size:clamp(1.7rem,4vw,2.3rem);font-weight:700;letter-spacing:-.018em}
+.sec-head p{font-size:.93rem;color:var(--muted)}
 @media (max-width:760px){.sec-head{grid-template-columns:minmax(0,1fr)}}
 
-/* Impact */
-.impact{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-@media (max-width:760px){.impact{grid-template-columns:minmax(0,1fr)}}
-.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;gap:14px;align-content:start;min-width:0}
-.kpi .big{font:800 clamp(2.4rem,6vw,3.3rem)/1 var(--f-display);letter-spacing:-.035em;font-variant-numeric:tabular-nums}
-.kpi .big small{font-size:.42em;letter-spacing:0;color:var(--muted);font-weight:700;margin-left:6px}
-.kpi h3{font-size:1.08rem;font-weight:700}
-.kpi p{color:var(--muted);font-size:.93rem}
-.cmp{display:grid;gap:8px}
-.cmp-row{display:grid;grid-template-columns:4.6em minmax(0,1fr) 5.8em;align-items:center;gap:10px;font:400 .76rem var(--f-mono);color:var(--muted)}
-.cmp-row b{white-space:nowrap;font-weight:500;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
-.track{height:12px;border-radius:3px;background:color-mix(in srgb,var(--line) 55%,transparent)}
-.fill{height:100%;border-radius:3px;background:var(--before)}
+/* impact bento */
+.bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
+.tile{--mx:50%;--my:50%;position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;display:grid;gap:12px;align-content:start;min-width:0;overflow:hidden;transition:border-color .2s}
+.tile::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(260px circle at var(--mx) var(--my),color-mix(in srgb,var(--accent) 12%,transparent),transparent 70%)}
+.tile:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.tile:hover::after{opacity:1}
+.t3{grid-column:span 3}.t2{grid-column:span 2}.t6{grid-column:span 6}
+@media (max-width:900px){.t3,.t2{grid-column:span 6}}
+@media (min-width:600px) and (max-width:900px){.t2{grid-column:span 3}.t2:last-of-type{grid-column:span 6}}
+.tile .big{font:800 clamp(2.3rem,5.4vw,3.4rem)/1 var(--f-display);letter-spacing:-.035em;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px}
+.big .from{color:var(--before);text-decoration:line-through;text-decoration-thickness:2px;font-size:.62em}
+.big .arrow{color:var(--muted);font-size:.5em;font-weight:500}
+.big .to{color:var(--accent)}
+.tile h3{font-size:1.05rem;font-weight:700}
+.tile p{color:var(--muted);font-size:.92rem}
+.bars{display:grid;gap:8px;margin-top:2px}
+.bar{display:grid;grid-template-columns:4.8em minmax(0,1fr) 4.2em;gap:10px;align-items:center;font:400 .76rem var(--f-mono);color:var(--muted)}
+.bar b{text-align:right;color:var(--ink);font-weight:500;white-space:nowrap}
+.trk{height:11px;border-radius:3px;background:color-mix(in srgb,var(--line) 60%,transparent);overflow:hidden}
+.fill{height:100%;width:var(--w);border-radius:3px;background:var(--before);transform-origin:left;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
 .fill.after{background:var(--accent)}
-.steps{display:flex;flex-wrap:wrap;gap:6px;font:400 .76rem var(--f-mono)}
-.steps span{border:1px solid var(--line);border-radius:6px;padding:3px 8px;background:var(--bg)}
-.ver{display:flex;align-items:center;gap:10px;font:500 .95rem var(--f-mono);flex-wrap:wrap}
-.ver s{color:var(--muted);text-decoration-thickness:1px}
-.ver i{font-style:normal;color:var(--muted)}
-.ver strong{color:var(--accent);font-weight:500}
-.cov .track{height:8px}
-.context{margin-top:20px;font-size:.88rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px}
-.context span+span::before{content:"· ";color:var(--accent)}
+.js .fill{transform:scaleX(0)}
+.js .in-view .fill{transform:scaleX(1)}
+.pipe{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+.ver{font:500 .95rem var(--f-mono);display:flex;gap:10px;align-items:center}
+.ver s{color:var(--muted)} .ver i{font-style:normal;color:var(--muted)} .ver strong{color:var(--accent);font-weight:500}
+.ctx{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.88rem;color:var(--muted);margin-top:18px}
+.ctx span+span::before{content:"· ";color:var(--accent)}
 
-/* Experience */
-.role-row{display:grid;grid-template-columns:210px minmax(0,1fr);gap:32px;padding-block:28px;border-bottom:1px solid var(--line)}
-.role-row:first-child{padding-top:4px}
-.role-row:last-child{border-bottom:0}
+/* break it */
+.lab{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.tabs{display:flex;gap:2px;padding:8px 8px 0;border-bottom:1px solid var(--line);overflow-x:auto;background:color-mix(in srgb,var(--bg) 60%,var(--surface))}
+.tabs button{font:600 .88rem var(--f-body);border:1px solid transparent;border-bottom:0;background:transparent;color:var(--muted);padding:10px 16px;border-radius:10px 10px 0 0;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--line);margin-bottom:-1px;padding-bottom:11px}
+.panel{padding:24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:24px}
+@media (max-width:860px){.panel{grid-template-columns:minmax(0,1fr)}}
+.panel h3{font-size:1.25rem}
+.panel .lede{color:var(--muted);margin-top:8px;font-size:.95rem;max-width:42em}
+.ctrls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-top:18px}
+.chk{display:inline-flex;gap:8px;align-items:center;font-size:.9rem;cursor:pointer;user-select:none}
+.chk input{accent-color:var(--accent);width:16px;height:16px}
+.state{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.stat{border:1px solid var(--line);border-radius:10px;padding:8px 12px;min-width:104px;background:var(--bg)}
+.stat .k{font:400 .7rem var(--f-mono);color:var(--muted)}
+.stat .v{font:700 1.35rem var(--f-display);font-variant-numeric:tabular-nums}
+.stat.bad{border-color:var(--bad);background:var(--bad-soft)} .stat.bad .v{color:var(--bad)}
+.stat.good .v{color:var(--ok)}
+.evid{margin-top:16px;font-size:.84rem;color:var(--muted)}
+.evid a{font-family:var(--f-mono);font-size:.8rem}
+.sim-log{background:var(--term);color:var(--term-ink);border-radius:12px;font:400 .8rem/1.7 var(--f-mono);padding:14px 16px;min-height:260px;max-height:340px;overflow:auto;align-self:start}
+.sim-log .l{display:block;white-space:pre-wrap}
+.sim-log .l.ok{color:#5BD49A}.sim-log .l.warn{color:#F0B357}.sim-log .l.bad{color:#FF8A8A}.sim-log .l.dim{color:var(--term-dim)}
+.sim-log .empty{color:var(--term-dim)}
+.chips2{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;min-height:34px}
+.tok{font:500 .78rem var(--f-mono);padding:5px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg)}
+.tok.active{border-color:var(--ok);color:var(--ok);background:var(--ok-soft)}
+.tok.used{color:var(--muted);text-decoration:line-through}
+.tok.revoked{border-color:var(--bad);color:var(--bad);background:var(--bad-soft)}
+.ord{font:500 .78rem var(--f-mono);padding:5px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg)}
+.ord.PENDING{border-color:var(--warn);color:var(--warn);background:var(--warn-soft)}
+.ord.CONFIRMED{border-color:var(--ok);color:var(--ok);background:var(--ok-soft)}
+.ord.REJECTED{border-color:var(--bad);color:var(--bad);background:var(--bad-soft)}
+.note{font-size:.82rem;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)}
+
+/* experience */
+.role-row{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;padding-block:28px;border-bottom:1px solid var(--line)}
+.role-row:first-child{padding-top:4px}.role-row:last-child{border-bottom:0}
 @media (max-width:760px){.role-row{grid-template-columns:minmax(0,1fr);gap:10px}}
 .when{font:500 .82rem var(--f-mono);color:var(--muted)}
-.when strong{display:block;color:var(--ink);font-family:var(--f-display);font-size:1.25rem;font-weight:700;margin-bottom:4px}
-.role-row h3{font-size:1.3rem;font-weight:700}
-.role-row .sub{color:var(--muted);font-size:.93rem;margin-top:6px;max-width:46em}
-.cases{display:grid;gap:18px;margin-top:20px}
+.when strong{display:block;color:var(--ink);font:700 1.2rem var(--f-display);margin-bottom:4px}
+.role-row h3{font-size:1.28rem}
+.sub{color:var(--muted);font-size:.93rem;margin-top:6px;max-width:46em}
+.cases{display:grid;gap:16px;margin-top:20px}
 .case{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px}
-@media (max-width:560px){.case{grid-template-columns:minmax(0,1fr);gap:4px}}
-.case .label{color:var(--accent);padding-top:3px}
-.case p{max-width:46em}
-.case strong{font-weight:600}
+@media (max-width:560px){.case{grid-template-columns:minmax(0,1fr);gap:2px}}
+.case .tag{color:var(--accent);padding-top:3px}
+.case p{max-width:46em}.case strong{font-weight:600}
 
-/* Projects */
-.projects{display:grid;gap:26px}
-.project{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.p-top{padding:26px 26px 0;display:grid;gap:12px}
-.p-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font:500 .74rem var(--f-mono);letter-spacing:.04em}
-.p-axis{color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
-.pill{padding:3px 10px;border-radius:999px}
-.pill.done{color:var(--ok);background:var(--ok-soft)}
-.pill.wip{color:var(--wip);background:var(--wip-soft)}
-.project h3{font-size:clamp(1.4rem,3.4vw,1.8rem);font-weight:700;letter-spacing:-.01em;overflow-wrap:anywhere}
-.p-lead{color:var(--muted);max-width:46em}
-.p-link{font-size:.86rem;color:var(--ink);max-width:46em}
-.p-link::before{content:"↳ ";color:var(--accent);font-family:var(--f-mono)}
-.p-body{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:26px;padding:22px 26px 26px}
+/* projects */
+.projects{display:grid;gap:22px}
+.project{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.p-top{padding:26px 26px 4px;display:grid;gap:10px}
+.p-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.pill{font:500 .74rem var(--f-mono);padding:3px 10px;border-radius:999px}
+.pill.wip{color:var(--warn);background:var(--warn-soft)}
+.pill.ver2{color:var(--ok);background:var(--ok-soft)}
+.project h3{font-size:clamp(1.4rem,3.2vw,1.8rem);letter-spacing:-.01em}
+.p-lead{color:var(--muted);max-width:48em}
+.p-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;padding:18px 26px 22px}
 @media (max-width:840px){.p-body{grid-template-columns:minmax(0,1fr)}}
-.p-body .label{margin-bottom:10px}
-.decisions{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:.95rem}
+.p-body h4{font:500 .78rem var(--f-mono);color:var(--muted);margin-bottom:10px}
+.decisions{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:.94rem}
 .decisions li{padding-left:18px;position:relative}
-.decisions li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:2px;background:var(--accent)}
+.decisions li::before{content:"";position:absolute;left:0;top:.65em;width:8px;height:2px;background:var(--accent)}
 .decisions strong{font-weight:600}
-.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:20px;font:400 .76rem var(--f-mono)}
-.flow span{border:1px solid var(--line);border-radius:6px;padding:4px 8px;background:var(--bg)}
-.flow i{font-style:normal;color:var(--muted)}
-.term{background:var(--term);color:var(--term-ink);border-radius:10px;font:400 .8rem/1.65 var(--f-mono);padding:16px 18px;overflow-x:auto;min-width:0;align-self:start}
-.term .cmd{color:var(--term-dim)}
-.term .pass{color:#5BD49A}
-.term .wipc{color:#F0B357}
-.term .row{display:block;white-space:pre-wrap}
-.term .sum{display:block;margin-top:8px;padding-top:8px;border-top:1px solid #222A3A;color:var(--term-dim)}
-.p-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:16px 26px;border-top:1px solid var(--line)}
+.evidence{background:var(--term);color:var(--term-ink);border-radius:10px;font:400 .79rem/1.65 var(--f-mono);padding:14px 16px;align-self:start}
+.evidence .row{display:block}
+.evidence .ok{color:#5BD49A}
+.evidence .dim{color:var(--term-dim)}
+.evidence a{color:#9DB0FF;text-decoration:none}
+.evidence a:hover{text-decoration:underline}
+.p-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:14px 26px;border-top:1px solid var(--line)}
 .chip{font:400 .76rem var(--f-mono);color:var(--ink);background:var(--bg);border:1px solid var(--line);padding:3px 9px;border-radius:6px}
 .repo{margin-left:auto;font-weight:600;font-size:.9rem;text-decoration:none;white-space:nowrap}
 .repo:hover{text-decoration:underline}
-@media (max-width:560px){.repo{margin-left:0;width:100%}.p-top{padding:20px 18px 0}.p-body{padding:18px}.p-foot{padding:14px 18px}.kpi{padding:20px}}
+@media (max-width:560px){.repo{margin-left:0;width:100%}.p-top{padding:20px 18px 4px}.p-body{padding:16px 18px}.p-foot{padding:14px 18px}.tile{padding:20px}.panel{padding:18px}}
 
-/* Stack */
+/* stack */
 .stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line)}
 @media (max-width:760px){.stack{grid-template-columns:minmax(0,1fr)}}
-.stack div{padding:20px 22px 20px 0;border-bottom:1px solid var(--line);min-width:0}
-.stack div:nth-child(even){padding-left:22px;border-left:1px solid var(--line)}
-@media (max-width:760px){.stack div:nth-child(even){padding-left:0;border-left:0}}
-.stack h3{font:500 .72rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.stack>div{padding:20px 22px 20px 0;border-bottom:1px solid var(--line);min-width:0}
+.stack>div:nth-child(even){padding-left:22px;border-left:1px solid var(--line)}
+@media (max-width:760px){.stack>div:nth-child(even){padding-left:0;border-left:0}}
+.stack h3{font:500 .78rem var(--f-mono);color:var(--muted);margin-bottom:12px}
 .stack p{display:flex;flex-wrap:wrap;gap:6px}
-.chip.key{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.chip.soft{border-style:dashed;color:var(--muted)}
 
-/* Education + contact */
+/* edu + contact */
 .duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
 @media (max-width:760px){.duo{grid-template-columns:minmax(0,1fr)}}
 .edu .sec-head{grid-template-columns:minmax(0,1fr)}
 .edu-item+.edu-item{margin-top:20px}
-.edu h3{font-size:1.15rem;font-weight:700}
-.edu p{color:var(--muted);margin-top:4px}
+.edu h3{font-size:1.15rem}.edu p{color:var(--muted);margin-top:4px}
 .langs{display:grid;gap:10px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
-.lang-row{display:grid;grid-template-columns:7em minmax(0,1fr) 4.5em;gap:12px;align-items:center;font-size:.93rem}
-.lang-row .track{height:6px}
-.lang-row .fill{background:var(--accent)}
-.lang-row > span:last-child{font:500 .76rem var(--f-mono);color:var(--muted);text-align:right}
-.contact{background:var(--ink);color:var(--bg);border-radius:14px;padding:28px;align-self:start}
-.contact h3{font-size:1.6rem;font-weight:700}
-.contact p{margin-top:8px;opacity:.8}
-.contact .links{display:grid;margin-top:20px}
-.contact a,.mail{color:var(--bg);font-family:var(--f-mono);font-size:.88rem;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid color-mix(in srgb,var(--bg) 22%,transparent);text-decoration:none;overflow-wrap:anywhere}
-.contact a:hover{color:var(--accent-soft)}
+.lang-row{display:grid;grid-template-columns:6em minmax(0,1fr) 7em;gap:12px;align-items:center;font-size:.93rem}
+.lang-row .trk{height:6px}.lang-row .fill{background:var(--accent);--w:100%}
+.lang-row>span:last-child{font:500 .76rem var(--f-mono);color:var(--muted);text-align:right}
+.contact{background:var(--ink);color:var(--bg);border-radius:16px;padding:28px;align-self:start}
+.contact h3{font-size:1.7rem}
+.contact p{margin-top:8px;opacity:.82}
+.links{display:grid;margin-top:20px}
+.contact a,.mail{color:var(--bg);font:400 .88rem var(--f-mono);display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid color-mix(in srgb,var(--bg) 22%,transparent);text-decoration:none;overflow-wrap:anywhere}
+.contact a:hover{opacity:.75}
 .mail span{user-select:all}
-.copy{font:500 .72rem var(--f-mono);letter-spacing:.04em;background:transparent;color:var(--bg);border:1px solid color-mix(in srgb,var(--bg) 40%,transparent);border-radius:6px;padding:3px 9px;cursor:pointer;flex:none}
+.copy{font:500 .72rem var(--f-mono);background:transparent;color:var(--bg);border:1px solid color-mix(in srgb,var(--bg) 40%,transparent);border-radius:6px;padding:3px 9px;cursor:pointer;flex:none}
 .copy:hover{border-color:var(--bg)}
 footer{padding-block:28px 48px;font:400 .78rem var(--f-mono);color:var(--muted)}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
 </style>
-<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
+<div class="progress" aria-hidden="true"><i id="bar"></i></div>
 <header class="topbar">
   <div class="wrap">
     <a class="brand" href="#top">kaulin<b>.</b>mindiola</a>
     <nav class="nav" aria-label="Secciones">
       <a href="#impacto"><span lang="es">Impacto</span><span lang="en">Impact</span></a>
+      <a href="#rompelo"><span lang="es">Rómpelo</span><span lang="en">Break it</span></a>
       <a href="#experiencia"><span lang="es">Experiencia</span><span lang="en">Experience</span></a>
       <a href="#proyectos"><span lang="es">Proyectos</span><span lang="en">Projects</span></a>
       <a href="#stack">Stack</a>
       <a href="#contacto"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
     </nav>
-    <div class="lang" role="group" aria-label="Idioma / Language">
-      <button type="button" id="btn-es" data-set="es" aria-pressed="true">ES</button>
-      <button type="button" id="btn-en" data-set="en" aria-pressed="false">EN</button>
+    <div class="tools">
+      <div class="seg" role="group" aria-label="Idioma / Language">
+        <button type="button" data-set="es" aria-pressed="true">ES</button>
+        <button type="button" data-set="en" aria-pressed="false">EN</button>
+      </div>
+      <button type="button" class="icon-btn" id="theme" aria-label="Cambiar tema / Toggle theme" title="Tema / Theme">◐</button>
     </div>
   </div>
 </header>
 
 <main id="top">
-  <!-- HERO -->
   <div class="wrap hero">
     <div class="hero-grid">
       <div>
-        <span class="status"><span lang="es">Disponible · abierto a remoto</span><span lang="en">Available · open to remote</span></span>
+        <figure class="portrait">
+          <img src="assets/foto-perfil.jpg" alt="Kaulin Mindiola" width="184" height="184" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+          <div class="initials" hidden aria-hidden="true">KM</div>
+        </figure>
+        <span class="status"><span lang="es">Disponible · abierto a trabajo remoto</span><span lang="en">Available · open to remote work</span></span>
         <h1>Kaulin Mindiola</h1>
-        <p class="role">Backend Engineer <span>/</span> Java · Spring Boot · AWS</p>
-        <p class="thesis" lang="es">Llevo sistemas distribuidos de punta a punta: diseño de API y datos, integraciones resilientes, eventos entre servicios y confiabilidad en producción. Mi trabajo se mide en <em>pagos que no se duplican, consultas que bajan de 6 s a 0,4 s</em> y campañas de alto tráfico sin incidentes.</p>
-        <p class="thesis" lang="en">I own distributed backend systems end to end: API and data design, resilient integrations, events between services and production reliability. My work shows up as <em>payments that never duplicate, queries that drop from 6 s to 0.4 s</em> and high-traffic campaigns with no incidents.</p>
+        <p class="role">Backend Engineer · Java · Python · AWS</p>
+        <p class="thesis" lang="es">Construyo y opero servicios backend que siguen funcionando cuando algo falla: pagos que no se duplican, eventos que no se pierden y APIs que responden rápido con millones de filas.</p>
+        <p class="thesis" lang="en">I build and run backend services that keep working when something fails: payments that never duplicate, events that never get lost, and APIs that stay fast over millions of rows.</p>
         <div class="cta">
           <a class="btn primary" href="cv/Kaulin_Mindiola_CV.pdf" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
             <span lang="es">Ver CV</span><span lang="en">View resume</span></a>
-          <a class="btn" href="https://www.linkedin.com/in/kaulinmindiola/" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-            LinkedIn</a>
-          <a class="btn" href="https://github.com/kaulinmindiola" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
-            GitHub</a>
-          <a class="btn" href="#contacto">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
-            <span lang="es">Contacto</span><span lang="en">Contact</span></a>
+          <a class="btn" href="#rompelo"><span lang="es">Probar las demos</span><span lang="en">Try the demos</span></a>
+          <a class="btn" href="https://github.com/kaulinmindiola" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="https://www.linkedin.com/in/kaulinmindiola/" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </div>
-      <figure class="portrait">
-        <img src="assets/foto-perfil.jpg" alt="Kaulin Mindiola" width="520" height="650" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
-        <div class="initials" hidden aria-hidden="true">KM</div>
-        <figcaption>Backend Engineer</figcaption>
-      </figure>
+      <div class="live" aria-label="Demostración animada: un reintento no ejecuta la transferencia dos veces">
+        <div class="live-bar"><i></i><i></i><i></i><span>fluxpay · idempotency</span></div>
+        <div class="live-body" id="live" aria-live="off"></div>
+      </div>
     </div>
     <dl class="facts">
-      <div><dt lang="es">Experiencia</dt><dt lang="en">Experience</dt><dd lang="es">~4 años</dd><dd lang="en">~4 years</dd></div>
-      <div><dt lang="es">Nivel</dt><dt lang="en">Level</dt><dd>Mid-level</dd></div>
+      <div><dt lang="es">Experiencia</dt><dt lang="en">Experience</dt><dd lang="es">4 años</dd><dd lang="en">4 years</dd></div>
+      <div><dt lang="es">Lenguajes</dt><dt lang="en">Languages</dt><dd>Java · Python</dd></div>
+      <div><dt lang="es">Enfoque</dt><dt lang="en">Focus</dt><dd lang="es">Confiabilidad</dd><dd lang="en">Reliability</dd></div>
       <div><dt lang="es">Ubicación</dt><dt lang="en">Location</dt><dd lang="es">Colombia · remoto</dd><dd lang="en">Colombia · remote</dd></div>
     </dl>
   </div>
@@ -267,60 +318,137 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
     <div class="wrap">
       <div class="sec-head">
         <h2><span lang="es">Impacto en producción</span><span lang="en">Production impact</span></h2>
-        <p lang="es">Resultados en EFFICODE sobre una plataforma order-to-cash de 6 microservicios construida para un cliente. Cifras aproximadas; el código y el cliente son confidenciales.</p>
-        <p lang="en">Results at EFFICODE on a 6-microservice order-to-cash platform built for a client. Approximate figures; the code and client are confidential.</p>
+        <p lang="es">Resultados en EFFICODE, en proyectos para clientes. Cifras aproximadas; el código y los clientes son confidenciales.</p>
+        <p lang="en">Results at EFFICODE, on client projects. Approximate figures; the code and the clients are confidential.</p>
       </div>
-
-      <div class="impact">
-        <article class="kpi">
-          <div class="label" lang="es">Rendimiento</div><div class="label" lang="en">Performance</div>
-          <div class="big">15×<small lang="es">más rápido</small><small lang="en">faster</small></div>
-          <h3 lang="es">Latencia p95 del listado de órdenes</h3><h3 lang="en">p95 latency, order listing endpoint</h3>
-          <div class="cmp" role="img" aria-label="p95: 6 s antes, 0,4 s después">
-            <div class="cmp-row"><span lang="es">antes</span><span lang="en">before</span><div class="track"><div class="fill" style="width:100%"></div></div><b>~6 s</b></div>
-            <div class="cmp-row"><span lang="es">después</span><span lang="en">after</span><div class="track"><div class="fill after" style="width:6.67%"></div></div><b lang="es">~0,4 s</b><b lang="en">~0.4 s</b></div>
-          </div>
-          <p lang="es">Sobre ~2 millones de filas, con optimización de consultas e índices, paginación y caché.</p>
-          <p lang="en">Over ~2 million rows, through query and index optimization, pagination and caching.</p>
+      <div class="bento">
+        <article class="tile t3">
+          <div class="tag" lang="es">Pagos · Python</div><div class="tag" lang="en">Payments · Python</div>
+          <div class="big"><span class="from">4,2%</span><span class="arrow">→</span><span class="to"><span class="count" data-from="4.2" data-to="0.8" data-dec="1">0,8</span>%</span></div>
+          <h3 lang="es">Pagos fallidos tras rediseñar el flujo de pagos</h3><h3 lang="en">Failed payments after redesigning the payment flow</h3>
+          <p lang="es">De llamadas síncronas a un flujo orientado a eventos con webhooks idempotentes y reintentos con Celery. ~US$18.000 al mes recuperados.</p>
+          <p lang="en">From synchronous calls to an event-driven flow with idempotent webhooks and Celery retries. ~US$18k per month recovered.</p>
         </article>
-
-        <article class="kpi">
-          <div class="label" lang="es">Confiabilidad</div><div class="label" lang="en">Reliability</div>
-          <div class="big">~40<small>min</small></div>
-          <h3 lang="es">Incidente resuelto y flujo de pagos rediseñado</h3><h3 lang="en">Incident resolved, payment flow redesigned</h3>
-          <p lang="es">Agotamiento del pool de conexiones bajo 3× de tráfico. Después rediseñé el flujo y la siguiente campaña de alto tráfico corrió sin incidentes:</p>
-          <p lang="en">Connection pool exhaustion under 3× traffic. I then redesigned the flow and the next high-traffic campaign ran with no incidents:</p>
-          <div class="steps"><span lang="es">llamadas externas fuera de la transacción</span><span lang="en">external calls outside the transaction</span><span>circuit breaker</span><span lang="es">reintentos idempotentes</span><span lang="en">idempotent retries</span><span lang="es">confirmación por eventos</span><span lang="en">event-driven confirmation</span></div>
-        </article>
-
-        <article class="kpi">
-          <div class="label" lang="es">Automatización</div><div class="label" lang="en">Automation</div>
-          <div class="big">−90%<small lang="es">esfuerzo</small><small lang="en">effort</small></div>
-          <h3 lang="es">Conciliación diaria de pagos automatizada</h3><h3 lang="en">Daily payment reconciliation automated</h3>
-          <div class="cmp" role="img" aria-label="Horas por semana de finanzas: 10 antes, 1 después">
-            <div class="cmp-row"><span lang="es">antes</span><span lang="en">before</span><div class="track"><div class="fill" style="width:100%"></div></div><b lang="es">~10 h/sem</b><b lang="en">~10 h/wk</b></div>
-            <div class="cmp-row"><span lang="es">después</span><span lang="en">after</span><div class="track"><div class="fill after" style="width:10%"></div></div><b lang="es">~1 h/sem</b><b lang="en">~1 h/wk</b></div>
+        <article class="tile t3">
+          <div class="tag" lang="es">Rendimiento</div><div class="tag" lang="en">Performance</div>
+          <div class="big"><span class="count" data-from="1" data-to="15" data-dec="0">15</span>×<span class="arrow" lang="es">más rápido</span><span class="arrow" lang="en">faster</span></div>
+          <h3 lang="es">Latencia p95 del listado de órdenes</h3><h3 lang="en">p95 latency of the order listing</h3>
+          <div class="bars" role="img" aria-label="p95: 6 s antes, 0,4 s después / before 6 s, after 0.4 s">
+            <div class="bar"><span lang="es">antes</span><span lang="en">before</span><div class="trk"><div class="fill" style="--w:100%"></div></div><b>~6 s</b></div>
+            <div class="bar"><span lang="es">después</span><span lang="en">after</span><div class="trk"><div class="fill after" style="--w:6.67%"></div></div><b>~0,4 s</b></div>
           </div>
-          <p lang="es">Horas semanales que el equipo de finanzas dedicaba a conciliar pagos.</p>
-          <p lang="en">Weekly hours the finance team spent reconciling payments.</p>
+          <p lang="es">Sobre ~2 millones de filas: consultas e índices, paginación y caché.</p>
+          <p lang="en">Over ~2 million rows: query and index tuning, pagination and caching.</p>
         </article>
-
-        <article class="kpi">
-          <div class="label" lang="es">Modernización</div><div class="label" lang="en">Modernization</div>
-          <div class="ver"><s>Java 11</s><i>→</i><strong>Java 17</strong></div>
-          <div class="ver"><s>Spring Boot 2.7</s><i>→</i><strong>Spring Boot 3.2</strong></div>
-          <h3 lang="es">Migración servicio por servicio</h3><h3 lang="en">Service-by-service migration</h3>
-          <div class="cmp cov" role="img" aria-label="Cobertura de pruebas aproximada 78%">
-            <div class="cmp-row"><span lang="es">cobertura</span><span lang="en">coverage</span><div class="track"><div class="fill after" style="width:78%"></div></div><b>~78%</b></div>
+        <article class="tile t2">
+          <div class="tag" lang="es">Confiabilidad</div><div class="tag" lang="en">Reliability</div>
+          <div class="big"><span class="count" data-from="99.5" data-to="99.95" data-dec="2">99,95</span>%</div>
+          <h3 lang="es">Disponibilidad de la API principal</h3><h3 lang="en">Core API availability</h3>
+          <p lang="es">Desde 99,5 %, con SLOs, trazabilidad distribuida y rollbacks automáticos. 30 % menos tickets de soporte.</p>
+          <p lang="en">Up from 99.5%, with SLOs, distributed tracing and automated rollbacks. 30% fewer support tickets.</p>
+        </article>
+        <article class="tile t2">
+          <div class="tag">Multi-tenant</div>
+          <div class="big"><span class="count" data-from="1" data-to="3" data-dec="0">3</span>×<span class="arrow" lang="es">clientes</span><span class="arrow" lang="en">customers</span></div>
+          <h3 lang="es">PostgreSQL de 400 GB, sin tiempo de inactividad</h3><h3 lang="en">400 GB PostgreSQL, zero downtime</h3>
+          <p lang="es">De single-tenant a multi-tenant particionado en la misma infraestructura. 40 % menos de costo en la nube por cliente.</p>
+          <p lang="en">From single-tenant to partitioned multi-tenant on the same infrastructure. 40% lower cloud cost per customer.</p>
+        </article>
+        <article class="tile t2">
+          <div class="tag" lang="es">Automatización</div><div class="tag" lang="en">Automation</div>
+          <div class="big"><span class="from">10 h</span><span class="arrow">→</span><span class="to">1 h</span></div>
+          <h3 lang="es">Conciliación diaria de pagos</h3><h3 lang="en">Daily payment reconciliation</h3>
+          <p lang="es">Esfuerzo semanal de finanzas, tras automatizar la conciliación.</p>
+          <p lang="en">Weekly finance effort after automating the reconciliation.</p>
+        </article>
+        <article class="tile t6">
+          <div class="tag" lang="es">Modernización · Java</div><div class="tag" lang="en">Modernization · Java</div>
+          <div class="pipe">
+            <div class="ver"><s>Java 11</s><i>→</i><strong>Java 17</strong></div>
+            <div class="ver"><s>Spring Boot 2.7</s><i>→</i><strong>Spring Boot 3.2</strong></div>
           </div>
-          <p lang="es">Respaldada por pruebas de integración en cada servicio migrado.</p>
-          <p lang="en">Backed by integration tests on every migrated service.</p>
+          <h3 lang="es">Migración servicio por servicio de una plataforma order-to-cash de 6 microservicios</h3><h3 lang="en">Service-by-service migration of a 6-microservice order-to-cash platform</h3>
+          <div class="bars" role="img" aria-label="~78% coverage">
+            <div class="bar"><span lang="es">cobertura</span><span lang="en">coverage</span><div class="trk"><div class="fill after" style="--w:78%"></div></div><b>~78%</b></div>
+          </div>
+          <p lang="es">Con pruebas de integración y cero regresiones visibles para el cliente. Redujo ~20 % el lead time de nuevas funcionalidades.</p>
+          <p lang="en">Backed by integration tests, with zero customer-facing regressions. Cut feature lead time by ~20%.</p>
         </article>
       </div>
-      <div class="context">
-        <span lang="es">6 microservicios</span><span lang="en">6 microservices</span>
-        <span lang="es">Dueño técnico de órdenes y pagos</span><span lang="en">Technical owner of orders &amp; payments</span>
+      <div class="ctx">
+        <span lang="es">Responsable técnico de órdenes y pagos</span><span lang="en">Technical owner of orders &amp; payments</span>
         <span lang="es">Equipo Scrum de 9 personas</span><span lang="en">9-person Scrum team</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BREAK IT -->
+  <section id="rompelo">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2><span lang="es">Rómpelo tú</span><span lang="en">Break it yourself</span></h2>
+        <p lang="es">Tres simulaciones del comportamiento que documentan mis proyectos públicos. Provoca el fallo y mira qué garantiza el sistema.</p>
+        <p lang="en">Three simulations of the behaviour my public projects document. Trigger the failure and see what the system guarantees.</p>
+      </div>
+      <div class="lab">
+        <div class="tabs" role="tablist" aria-label="Simulaciones / Simulations">
+          <button role="tab" id="tab-1" aria-selected="true" aria-controls="p1">FluxPay · <span lang="es">reintentos</span><span lang="en">retries</span></button>
+          <button role="tab" id="tab-2" aria-selected="false" aria-controls="p2" tabindex="-1">Relay · <span lang="es">Kafka caído</span><span lang="en">Kafka down</span></button>
+          <button role="tab" id="tab-3" aria-selected="false" aria-controls="p3" tabindex="-1">Warden · <span lang="es">token robado</span><span lang="en">stolen token</span></button>
+        </div>
+
+        <div class="panel" id="p1" role="tabpanel" aria-labelledby="tab-1">
+          <div>
+            <h3 lang="es">Un cliente reintenta la misma transferencia</h3><h3 lang="en">A client retries the same transfer</h3>
+            <p class="lede" lang="es">Cinco solicitudes idénticas de 100,00 llegan a la vez. Con la clave de idempotencia, solo una se ejecuta. Si Redis falla, la restricción UNIQUE de PostgreSQL sigue protegiendo el saldo.</p>
+            <p class="lede" lang="en">Five identical 100.00 requests arrive at once. With the idempotency key, only one executes. If Redis fails, the PostgreSQL UNIQUE constraint still protects the balance.</p>
+            <div class="ctrls">
+              <label class="chk"><input type="checkbox" id="s1-idem" checked><span lang="es">Clave de idempotencia</span><span lang="en">Idempotency key</span></label>
+              <label class="chk"><input type="checkbox" id="s1-redis" checked><span lang="es">Redis disponible</span><span lang="en">Redis available</span></label>
+              <button class="btn primary" type="button" id="s1-go"><span lang="es">Enviar 5 solicitudes</span><span lang="en">Send 5 requests</span></button>
+              <button class="btn" type="button" id="s1-reset"><span lang="es">Reiniciar</span><span lang="en">Reset</span></button>
+            </div>
+            <div class="state" id="s1-state"></div>
+            <p class="evid"><span lang="es">Evidencia en el repositorio:</span><span lang="en">Evidence in the repository:</span> <a href="https://github.com/kaulinmindiola/Payment-Gateway-Engine/blob/main/src/test/java/com/paymentgateway/engine/integration/TransferIdempotencyIT.java" target="_blank" rel="noopener">TransferIdempotencyIT</a> · <a href="https://github.com/kaulinmindiola/Payment-Gateway-Engine/blob/main/src/test/java/com/paymentgateway/engine/integration/RedisOutageIdempotencyIT.java" target="_blank" rel="noopener">RedisOutageIdempotencyIT</a></p>
+          </div>
+          <div class="sim-log" id="s1-log" aria-live="polite"></div>
+        </div>
+
+        <div class="panel" id="p2" role="tabpanel" aria-labelledby="tab-2" hidden>
+          <div>
+            <h3 lang="es">Kafka se cae después de crear la orden</h3><h3 lang="en">Kafka goes down after the order is created</h3>
+            <p class="lede" lang="es">La orden y su evento se guardan en la misma transacción (Transactional Outbox). Con Kafka caído las órdenes se aceptan y esperan en PostgreSQL; al volver, se publican solas.</p>
+            <p class="lede" lang="en">The order and its event are stored in the same transaction (Transactional Outbox). With Kafka down, orders are still accepted and wait in PostgreSQL; when it returns, they publish on their own.</p>
+            <div class="ctrls">
+              <label class="chk"><input type="checkbox" id="s2-kafka" checked><span lang="es">Kafka disponible</span><span lang="en">Kafka available</span></label>
+              <button class="btn primary" type="button" id="s2-order"><span lang="es">Crear orden</span><span lang="en">Create order</span></button>
+              <button class="btn" type="button" id="s2-dup"><span lang="es">Entregar el último evento otra vez</span><span lang="en">Deliver the last event again</span></button>
+              <button class="btn" type="button" id="s2-reset"><span lang="es">Reiniciar</span><span lang="en">Reset</span></button>
+            </div>
+            <div class="state" id="s2-state"></div>
+            <div class="chips2" id="s2-orders"></div>
+            <p class="evid"><span lang="es">Evidencia en el repositorio:</span><span lang="en">Evidence in the repository:</span> <a href="https://github.com/kaulinmindiola/Resilient-Order-Pipeline/blob/main/system-tests/src/test/java/io/github/kaulinmindiola/rop/system/KafkaOutageSystemIT.java" target="_blank" rel="noopener">KafkaOutageSystemIT</a> · <a href="https://github.com/kaulinmindiola/Resilient-Order-Pipeline/blob/main/inventory-service/src/test/java/io/github/kaulinmindiola/rop/inventory/adapter/in/kafka/DuplicateDeliveryIT.java" target="_blank" rel="noopener">DuplicateDeliveryIT</a></p>
+          </div>
+          <div class="sim-log" id="s2-log" aria-live="polite"></div>
+        </div>
+
+        <div class="panel" id="p3" role="tabpanel" aria-labelledby="tab-3" hidden>
+          <div>
+            <h3 lang="es">Alguien reutiliza un refresh token viejo</h3><h3 lang="en">Someone reuses an old refresh token</h3>
+            <p class="lede" lang="es">Cada refresh entrega un token nuevo e invalida el anterior. Si un token ya usado aparece de nuevo, es señal de robo: se revoca toda la sesión.</p>
+            <p class="lede" lang="en">Every refresh issues a new token and retires the previous one. If an already used token shows up again, it signals theft: the whole session is revoked.</p>
+            <div class="ctrls">
+              <button class="btn primary" type="button" id="s3-refresh"><span lang="es">Refrescar (cliente legítimo)</span><span lang="en">Refresh (legitimate client)</span></button>
+              <button class="btn" type="button" id="s3-replay"><span lang="es">Reutilizar token viejo (atacante)</span><span lang="en">Replay an old token (attacker)</span></button>
+              <button class="btn" type="button" id="s3-login"><span lang="es">Iniciar sesión de nuevo</span><span lang="en">Log in again</span></button>
+            </div>
+            <div class="chips2" id="s3-tokens"></div>
+            <div class="state" id="s3-state"></div>
+            <p class="evid"><span lang="es">Comportamiento descrito en el</span><span lang="en">Behaviour described in the</span> <a href="https://github.com/kaulinmindiola/warden" target="_blank" rel="noopener"><span lang="es">README de Warden</span><span lang="en">Warden README</span></a>.</p>
+          </div>
+          <div class="sim-log" id="s3-log" aria-live="polite"></div>
+        </div>
+        <p class="note" style="padding:0 24px 18px;margin-top:0;border:0"><span lang="es">Son simulaciones didácticas en el navegador: no ejecutan el código real, solo reproducen las garantías que documentan los README y que cubren las pruebas enlazadas.</span><span lang="en">These are teaching simulations in the browser: they don't run the real code, they reproduce the guarantees the READMEs document and the linked tests cover.</span></p>
       </div>
     </div>
   </section>
@@ -330,49 +458,54 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
     <div class="wrap">
       <div class="sec-head">
         <h2><span lang="es">Experiencia</span><span lang="en">Experience</span></h2>
-        <p lang="es">EFFICODE, empresa de servicios de software. Diseño, construcción y evolución de sistemas distribuidos para organizaciones cliente.</p>
-        <p lang="en">EFFICODE, a software services company. Designing, building and evolving distributed systems for client organizations.</p>
+        <p lang="es">EFFICODE, empresa de servicios de software. Servicios backend en producción para proyectos de clientes, en Python y Java.</p>
+        <p lang="en">EFFICODE, a software services company. Production backend services for client projects, in Python and Java.</p>
       </div>
-      <div class="timeline">
+      <div>
         <div class="role-row">
-          <div class="when"><strong>EFFICODE</strong>Jul 2023 – Sep 2026</div>
+          <div class="when"><strong>EFFICODE</strong><span lang="es">jul. 2023 – sep. 2026</span><span lang="en">Jul 2023 – Sep 2026</span></div>
           <div>
             <h3>Backend Developer · Mid-Level</h3>
-            <p class="sub" lang="es">Dueño técnico de los módulos de órdenes y pagos de una plataforma order-to-cash de 6 microservicios, en un equipo Scrum de 9 personas.</p>
+            <p class="sub" lang="es">Responsable técnico de los módulos de órdenes y pagos de una plataforma order-to-cash de 6 microservicios, en un equipo Scrum de 9 personas.</p>
             <p class="sub" lang="en">Technical owner of the orders and payments modules of a 6-microservice order-to-cash platform, in a 9-person Scrum team.</p>
             <div class="cases">
               <div class="case">
-                <div class="label" lang="es">Modernización</div><div class="label" lang="en">Modernization</div>
-                <p lang="es">Lideré la migración de <strong>Java 11 / Spring Boot 2.7 a Java 17 / Spring Boot 3.2</strong>, servicio por servicio, respaldada por pruebas de integración y ~78% de cobertura.</p>
-                <p lang="en">Led the migration from <strong>Java 11 / Spring Boot 2.7 to Java 17 / Spring Boot 3.2</strong>, service by service, backed by integration tests and ~78% coverage.</p>
+                <div class="tag" lang="es">Pagos · Python</div><div class="tag" lang="en">Payments · Python</div>
+                <p lang="es">Diseñé y lideré el paso de llamadas síncronas a un <strong>flujo orientado a eventos</strong> en Django/DRF, con webhooks idempotentes y reintentos con Celery, a cargo de contratos de API, modelo de datos, despliegue y monitoreo. Los pagos fallidos bajaron del 4,2 % al 0,8 % (~US$18.000/mes recuperados).</p>
+                <p lang="en">Designed and led the move from synchronous calls to an <strong>event-driven flow</strong> in Django/DRF, with idempotent webhooks and Celery retries, owning API contracts, data model, deployment and monitoring. Failed payments fell from 4.2% to 0.8% (~US$18k/month recovered).</p>
               </div>
               <div class="case">
-                <div class="label" lang="es">Confiabilidad</div><div class="label" lang="en">Reliability</div>
-                <p lang="es">Resolví en ~40 min un incidente por <strong>agotamiento del pool de conexiones</strong> bajo 3× de tráfico. Rediseñé el flujo de pagos con llamadas externas fuera de la transacción, circuit breaker, reintentos idempotentes y confirmación por eventos. La siguiente campaña de alto tráfico corrió sin incidentes.</p>
-                <p lang="en">Resolved a <strong>connection pool exhaustion</strong> incident under 3× traffic in ~40 min. Redesigned the payment flow with external calls outside transactions, a circuit breaker, idempotent retries and event-driven confirmation. The next high-traffic campaign ran with no incidents.</p>
+                <div class="tag" lang="es">Modernización · Java</div><div class="tag" lang="en">Modernization · Java</div>
+                <p lang="es">Lideré la migración a <strong>Java 17 / Spring Boot 3.2</strong> con ~78 % de cobertura y cero regresiones visibles para el cliente. Reduje ~20 % el lead time de nuevas funcionalidades.</p>
+                <p lang="en">Led the migration to <strong>Java 17 / Spring Boot 3.2</strong> with ~78% coverage and zero customer-facing regressions, cutting feature lead time by ~20%.</p>
               </div>
               <div class="case">
-                <div class="label" lang="es">Rendimiento</div><div class="label" lang="en">Performance</div>
-                <p lang="es">Bajé la <strong>latencia p95 del listado de órdenes de ~6 s a ~0,4 s</strong> sobre ~2 millones de filas, con optimización de consultas e índices, paginación y caché.</p>
-                <p lang="en">Cut <strong>p95 latency of the order listing from ~6 s to ~0.4 s</strong> over ~2 million rows, through query and index optimization, pagination and caching.</p>
+                <div class="tag">Multi-tenant</div>
+                <p lang="es">Migré una base <strong>PostgreSQL single-tenant de 400 GB</strong> a una arquitectura multi-tenant particionada sin tiempo de inactividad: 3 veces más clientes y 40 % menos costo en la nube por cliente.</p>
+                <p lang="en">Migrated a <strong>400 GB single-tenant PostgreSQL</strong> setup to a partitioned multi-tenant architecture with zero downtime: 3x more customers and 40% lower cloud spend per customer.</p>
               </div>
               <div class="case">
-                <div class="label" lang="es">Automatización</div><div class="label" lang="en">Automation</div>
-                <p lang="es">Automaticé la <strong>conciliación diaria de pagos</strong>: el esfuerzo de finanzas pasó de ~10 h a ~1 h por semana.</p>
-                <p lang="en">Automated <strong>daily payment reconciliation</strong>, cutting finance effort from ~10 h to ~1 h per week.</p>
+                <div class="tag" lang="es">Confiabilidad</div><div class="tag" lang="en">Reliability</div>
+                <p lang="es">Introduje <strong>SLOs, trazabilidad distribuida y rollbacks automáticos</strong> en la API principal: disponibilidad del 99,5 % al 99,95 % y 30 % menos tickets de soporte.</p>
+                <p lang="en">Introduced <strong>SLOs, distributed tracing and automated rollbacks</strong> for the core API: availability from 99.5% to 99.95% and 30% fewer support tickets.</p>
+              </div>
+              <div class="case">
+                <div class="tag" lang="es">Rendimiento</div><div class="tag" lang="en">Performance</div>
+                <p lang="es">Bajé la <strong>latencia p95 del listado de órdenes de ~6 s a ~0,4 s</strong> sobre ~2 millones de filas y automaticé la conciliación diaria de pagos: el esfuerzo de finanzas pasó de ~10 h a ~1 h por semana.</p>
+                <p lang="en">Cut the <strong>p95 latency of the order listing from ~6 s to ~0.4 s</strong> over ~2 million rows and automated daily payment reconciliation: finance effort went from ~10 h to ~1 h per week.</p>
               </div>
             </div>
           </div>
         </div>
         <div class="role-row">
-          <div class="when"><strong>EFFICODE</strong>Jul 2022 – Jun 2023</div>
+          <div class="when"><strong>EFFICODE</strong><span lang="es">jul. 2022 – jun. 2023</span><span lang="en">Jul 2022 – Jun 2023</span></div>
           <div>
             <h3>Backend Developer · Junior</h3>
             <div class="cases">
               <div class="case">
-                <div class="label" lang="es">Órdenes</div><div class="label" lang="en">Orders</div>
-                <p lang="es">Desarrollé APIs REST y lógica de negocio del dominio de órdenes, incluido un <strong>endpoint idempotente de creación de órdenes</strong> que eliminó los pedidos duplicados por reintentos del cliente. Con pruebas unitarias y de integración y revisión de pull requests.</p>
-                <p lang="en">Built REST APIs and business logic for the orders domain, including an <strong>idempotent order-creation endpoint</strong> that eliminated duplicate orders on client retries. With unit and integration tests and pull request reviews.</p>
+                <div class="tag" lang="es">Órdenes</div><div class="tag" lang="en">Orders</div>
+                <p lang="es">Desarrollé APIs REST y lógica de negocio del dominio de órdenes, incluido un <strong>endpoint idempotente de creación de órdenes</strong> que eliminó los duplicados por reintentos del cliente. Con pruebas unitarias y de integración, y revisiones de pull requests.</p>
+                <p lang="en">Built REST APIs and business logic for the orders domain, including an <strong>idempotent order-creation endpoint</strong> that eliminated duplicate orders caused by client retries. With unit and integration tests and pull request reviews.</p>
               </div>
             </div>
           </div>
@@ -386,84 +519,78 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
     <div class="wrap">
       <div class="sec-head">
         <h2><span lang="es">Proyectos públicos</span><span lang="en">Public projects</span></h2>
-        <p lang="es">Estos tres sistemas reproducen, con código que se puede revisar, los mismos problemas que resolví en producción. Cada uno termina donde sus pruebas lo demuestran.</p>
-        <p lang="en">These three systems reproduce, with code you can review, the same problems I solved in production. Each one stops where its tests prove the point.</p>
+        <p lang="es">Tres sistemas con código que se puede revisar. Cada afirmación está respaldada por una prueba enlazada en su README.</p>
+        <p lang="en">Three systems with code you can review. Every claim is backed by a test linked from its README.</p>
       </div>
-
       <div class="projects">
         <article class="project">
           <div class="p-top">
-            <div class="p-meta"><span class="p-axis"><span lang="es">Transacciones y concurrencia</span><span lang="en">Transactions &amp; concurrency</span></span></div>
-            <h3>FluxPay - Payment Gateway Engine</h3>
-            <p class="p-lead" lang="es">Núcleo transaccional que procesa transferencias entre cuentas. Muchas solicitudes simultáneas sobre la misma cuenta, o un reintento del cliente, nunca deben producir un saldo incorrecto ni un cobro doble.</p>
-            <p class="p-lead" lang="en">A transactional core that processes transfers between accounts. Many simultaneous requests on the same account, or a client retry, must never produce a wrong balance or a double charge.</p>
-            <p class="p-link" lang="es">Relacionado con el endpoint idempotente de órdenes y los reintentos idempotentes del flujo de pagos.</p>
-            <p class="p-link" lang="en">Related to the idempotent order endpoint and the idempotent retries in the payment flow.</p>
+            <div class="p-meta"><span class="tag" lang="es">Transacciones y concurrencia</span><span class="tag" lang="en">Transactions &amp; concurrency</span></div>
+            <h3>FluxPay · Payment Gateway Engine</h3>
+            <p class="p-lead" lang="es">Motor de pagos que mueve dinero correctamente bajo concurrencia, reintentos y fallos parciales: transferencias internas y externas contra un proveedor poco confiable.</p>
+            <p class="p-lead" lang="en">A payment engine that moves money correctly under concurrency, retries and partial failures: internal and external transfers against an unreliable provider.</p>
           </div>
           <div class="p-body">
             <div>
-              <div class="label" lang="es">Decisiones técnicas</div><div class="label" lang="en">Technical decisions</div>
+              <h4 lang="es">Decisiones técnicas</h4><h4 lang="en">Technical decisions</h4>
               <ul class="decisions" lang="es">
-                <li><strong>Bloqueo pesimista</strong> (<span class="mono">SELECT … FOR UPDATE</span>) sobre las cuentas involucradas, en orden fijo para evitar deadlocks.</li>
-                <li><strong>Idempotencia real</strong> con <span class="mono">Idempotency-Key</span> en Redis: un reintento devuelve la respuesta original sin ejecutar de nuevo.</li>
-                <li><strong>Resiliencia</strong> con Resilience4j para que una dependencia lenta no tumbe el servicio.</li>
-                <li><strong>Arquitectura hexagonal</strong>: el dominio no conoce Spring ni JPA.</li>
+                <li><strong>Bloqueo pesimista</strong> con orden determinista de bloqueos: sin actualizaciones perdidas ni deadlocks.</li>
+                <li><strong>Doble idempotencia</strong>: reclamo en Redis y restricción UNIQUE en PostgreSQL como respaldo.</li>
+                <li><strong>Resilience4j</strong>: reintentos y circuit breaker solo en fallos técnicos; un rechazo de negocio nunca se reintenta.</li>
+                <li><strong>Arquitectura hexagonal</strong> verificada con ArchUnit en cada build.</li>
               </ul>
               <ul class="decisions" lang="en">
-                <li><strong>Pessimistic locking</strong> (<span class="mono">SELECT … FOR UPDATE</span>) on the accounts involved, in a fixed order to prevent deadlocks.</li>
-                <li><strong>Real idempotency</strong> with an <span class="mono">Idempotency-Key</span> in Redis: a retry returns the original response without executing again.</li>
-                <li><strong>Resilience</strong> with Resilience4j so a slow dependency can't take the service down.</li>
-                <li><strong>Hexagonal architecture</strong>: the domain knows nothing about Spring or JPA.</li>
+                <li><strong>Pessimistic locking</strong> with a deterministic lock order: no lost updates, no deadlocks.</li>
+                <li><strong>Dual idempotency</strong>: a Redis claim with a PostgreSQL UNIQUE constraint as backstop.</li>
+                <li><strong>Resilience4j</strong>: retries and circuit breaker only on technical failures; a business decline is never retried.</li>
+                <li><strong>Hexagonal architecture</strong> enforced with ArchUnit on every build.</li>
               </ul>
-              <div class="flow"><span>POST /transfers</span><i>→</i><span>Idempotency-Key</span><i>→</i><span>FOR UPDATE</span><i>→</i><span>ACID commit</span></div>
             </div>
-            <div class="term" role="img" aria-label="Pruebas de integración">
-              <span class="row cmd">$ ./mvnw verify</span>
-              <span class="row"><span class="pass">✓</span> <span lang="es">transferencias concurrentes → saldo consistente, sin sobregiro</span><span lang="en">concurrent transfers → consistent balance, no overdraft</span></span>
-              <span class="row"><span class="pass">✓</span> <span lang="es">misma Idempotency-Key ×2 → una sola transferencia</span><span lang="en">same Idempotency-Key ×2 → a single transfer</span></span>
-              <span class="row"><span class="pass">✓</span> <span lang="es">fallo a mitad de la operación → rollback completo</span><span lang="en">failure mid-operation → full rollback</span></span>
-              <span class="row"><span class="pass">✓</span> <span lang="es">dependencia caída → circuit breaker abierto, error controlado</span><span lang="en">dependency down → circuit breaker open, controlled error</span></span>
-              <span class="sum">Testcontainers · PostgreSQL · Redis</span>
+            <div class="evidence">
+              <span class="row dim">$ ./mvnw verify</span>
+              <span class="row"><span class="ok">✓</span> <span lang="es">20 y 50 hilos sobre las mismas cuentas → sin débitos dobles</span><span lang="en">20 and 50 threads on the same accounts → no double debits</span></span>
+              <span class="row"><span class="ok">✓</span> <span lang="es">40 hilos A→B y B→A a la vez → sin deadlocks</span><span lang="en">40 threads A→B and B→A at once → no deadlocks</span></span>
+              <span class="row"><span class="ok">✓</span> <span lang="es">Redis detenido a mitad de secuencia → sin duplicados</span><span lang="en">Redis stopped mid-sequence → no duplicates</span></span>
+              <span class="row"><span class="ok">✓</span> <span lang="es">timeouts, 5xx y circuito abierto → sin pérdida ni duplicado</span><span lang="en">timeouts, 5xx and open circuit → no loss, no duplicate</span></span>
+              <span class="row dim"><span lang="es">~97 % de cobertura unitaria en dominio y aplicación</span><span lang="en">~97% unit coverage on domain and application</span></span>
             </div>
           </div>
           <div class="p-foot">
-            <span class="chip">Java 21</span><span class="chip">Spring Boot 3</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Resilience4j</span><span class="chip">Docker</span>
-            <a class="repo" href="https://github.com/kaulinmindiola/Payment-gateway-engine" target="_blank" rel="noopener"><span lang="es">Ver repositorio</span><span lang="en">View repository</span> ↗</a>
+            <span class="chip">Java 21</span><span class="chip">Spring Boot</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Resilience4j</span><span class="chip">Testcontainers</span><span class="chip">GitHub Actions</span>
+            <a class="repo" href="https://github.com/kaulinmindiola/Payment-Gateway-Engine" target="_blank" rel="noopener"><span lang="es">Ver repositorio</span><span lang="en">View repository</span> ↗</a>
           </div>
         </article>
 
         <article class="project">
           <div class="p-top">
-            <div class="p-meta"><span class="p-axis"><span lang="es">Eventos y consistencia eventual</span><span lang="en">Events &amp; eventual consistency</span></span></div>
-            <h3>StreamLedger - Resilient Order Pipeline</h3>
-            <p class="p-lead" lang="es">Servicio de órdenes que dispara procesamiento asíncrono (reserva de inventario y notificación). Tiene que seguir siendo consistente cuando el trabajo se reparte entre procesos que no comparten transacción.</p>
-            <p class="p-lead" lang="en">An order service that triggers asynchronous processing (inventory reservation and notification). It must stay consistent when work is split across processes that don't share a transaction.</p>
-            <p class="p-link" lang="es">Relacionado con la confirmación de pagos por eventos entre microservicios.</p>
-            <p class="p-link" lang="en">Related to event-driven payment confirmation between microservices.</p>
+            <div class="p-meta"><span class="tag" lang="es">Eventos y consistencia eventual</span><span class="tag" lang="en">Events &amp; eventual consistency</span></div>
+            <h3>Relay · Resilient Order Pipeline</h3>
+            <p class="p-lead" lang="es">Flujo de órdenes entre dos servicios, sin transacciones distribuidas: crear la orden es síncrono; reservar inventario y confirmarla ocurre de forma asíncrona.</p>
+            <p class="p-lead" lang="en">An order flow between two services without distributed transactions: creating the order is synchronous; reserving stock and confirming it happens asynchronously.</p>
           </div>
           <div class="p-body">
             <div>
-              <div class="label" lang="es">Decisiones técnicas</div><div class="label" lang="en">Technical decisions</div>
+              <h4 lang="es">Decisiones técnicas</h4><h4 lang="en">Technical decisions</h4>
               <ul class="decisions" lang="es">
-                <li><strong>Transactional Outbox</strong>: la orden y su evento se guardan en la misma transacción. Se elimina la doble escritura base de datos + broker.</li>
-                <li><strong>Consumidor idempotente</strong> con tabla <span class="mono">processed_events</span>: entrega <em>at-least-once</em> + deduplicación = efecto único.</li>
-                <li><strong>Dead Letter Queue</strong>: un mensaje que falla N veces se aparta para revisión. No se reintenta sin fin ni se pierde.</li>
-                <li><strong>Límite consciente</strong>: no se promete <em>exactly-once</em>; la decisión queda documentada en el README.</li>
+                <li><strong>Transactional Outbox</strong> en ambos servicios: se evita la doble escritura base de datos + Kafka.</li>
+                <li><strong>Consumidores idempotentes</strong>: entrega at-least-once, con efecto de negocio una sola vez.</li>
+                <li><strong>Reintentos con backoff y Dead Letter Topics</strong>; los mensajes inválidos no se reintentan ni bloquean al resto.</li>
+                <li><strong>Reserva de stock</strong> sin sobreventa ni deadlocks bajo concurrencia.</li>
               </ul>
               <ul class="decisions" lang="en">
-                <li><strong>Transactional Outbox</strong>: the order and its event are stored in the same transaction, removing the database + broker dual write.</li>
-                <li><strong>Idempotent consumer</strong> with a <span class="mono">processed_events</span> table: <em>at-least-once</em> delivery + deduplication = effect applied once.</li>
-                <li><strong>Dead Letter Queue</strong>: a message that fails N times is set aside for review. Never retried forever, never lost.</li>
-                <li><strong>Deliberate limit</strong>: no <em>exactly-once</em> promise; the decision is documented in the README.</li>
+                <li><strong>Transactional Outbox</strong> in both services: avoids the database + Kafka dual write.</li>
+                <li><strong>Idempotent consumers</strong>: at-least-once delivery, with the business effect applied once.</li>
+                <li><strong>Retries with backoff and Dead Letter Topics</strong>; invalid messages are never retried and never block the rest.</li>
+                <li><strong>Stock reservation</strong> without overselling or deadlocks under concurrency.</li>
               </ul>
-              <div class="flow"><span>Order + Outbox</span><i>→</i><span>Publisher</span><i>→</i><span>Kafka</span><i>→</i><span>Consumer</span><i>⤳</i><span>DLQ</span></div>
             </div>
-            <div class="term" role="img" aria-label="Pruebas de integración">
-              <span class="row cmd">$ docker compose up -d &amp;&amp; ./mvnw verify</span>
-              <span class="row"><span class="pass">✓</span> <span lang="es">mismo evento entregado ×2 → inventario reservado una vez</span><span lang="en">same event delivered ×2 → inventory reserved once</span></span>
-              <span class="row"><span class="pass">✓</span> <span lang="es">broker caído tras crear la orden → el evento se publica al volver</span><span lang="en">broker down after order created → event published on recovery</span></span>
-              <span class="row"><span class="pass">✓</span> <span lang="es">mensaje que siempre falla → termina en DLQ tras N reintentos</span><span lang="en">always-failing message → lands in DLQ after N retries</span></span>
-              <span class="sum">order-service · consumer · broker · postgres</span>
+            <div class="evidence">
+              <span class="row dim">$ docker compose up -d &amp;&amp; ./mvnw -Psystem-tests verify</span>
+              <span class="row"><span class="ok">✓</span> <span lang="es">Kafka caído → órdenes aceptadas, ninguna se pierde</span><span lang="en">Kafka down → orders accepted, none lost</span></span>
+              <span class="row"><span class="ok">✓</span> <span lang="es">mismo evento entregado dos veces → un solo efecto</span><span lang="en">same event delivered twice → a single effect</span></span>
+              <span class="row"><span class="ok">✓</span> <span lang="es">consumidor terminado a mitad de trabajo → sin pérdida ni duplicado</span><span lang="en">consumer killed mid-work → nothing lost or duplicated</span></span>
+              <span class="row"><span class="ok">✓</span> <span lang="es">mensaje que falla → reintentos y luego Dead Letter Topic</span><span lang="en">failing message → retries, then Dead Letter Topic</span></span>
+              <span class="row dim"><span lang="es">PostgreSQL y Kafka reales con Testcontainers</span><span lang="en">Real PostgreSQL and Kafka with Testcontainers</span></span>
             </div>
           </div>
           <div class="p-foot">
@@ -475,42 +602,39 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
         <article class="project">
           <div class="p-top">
             <div class="p-meta">
-              <span class="p-axis"><span lang="es">Identidad, accesos y notificaciones</span><span lang="en">Identity, access &amp; notifications</span></span>
-              <span class="pill wip" lang="es">En desarrollo</span><span class="pill wip" lang="en">In progress</span>
+              <span class="tag" lang="es">Identidad, accesos y notificaciones</span>
+              <span class="tag" lang="en">Identity, access &amp; notifications</span>
             </div>
-            <h3>Warden - Workspace Identity, Access &amp; Notification Platform</h3>
-            <p class="p-lead" lang="es">Plataforma backend que autentica usuarios, autoriza accesos por workspace y entrega notificaciones de forma altamente fiable. Asegura contención de sesiones robadas, aislamiento de datos multi-tenant en 3 capas y procesamiento asíncrono con tolerancia a fallos.</p>
-            <p class="p-lead" lang="en">Backend platform that authenticates users, authorizes per-workspace access, and reliably delivers notifications. Ensures stolen session containment, 3-layer multi-tenant data isolation, and fault-tolerant async processing.</p>
-            <p class="p-link" lang="es">Relacionado con Spring Security, arquitectura modular, aislamientos por tenant y resiliencia de mensajería.</p>
-            <p class="p-link" lang="en">Related to Spring Security, modular architecture, tenant isolation, and messaging resilience.</p>
+            <h3 style="clear: both; display: block; width: 100%;">Warden · Identity &amp; Notifications</h3>
+            <p class="p-lead" lang="es">Plataforma multi-tenant de identidad, acceso y notificaciones: registro, sesiones, workspaces con roles, invitaciones y entrega fiable de correos.</p>
+            <p class="p-lead" lang="en">A multi-tenant identity, access and notification platform: registration, sessions, role-based workspaces, invitations and reliable e-mail delivery.</p>
           </div>
           <div class="p-body">
             <div>
-              <div class="label" lang="es">Decisiones técnicas</div><div class="label" lang="en">Technical decisions</div>
+              <h4 lang="es">Decisiones técnicas</h4><h4 lang="en">Technical decisions</h4>
               <ul class="decisions" lang="es">
-                <li><strong>Monolito modular verificado</strong> con Spring Modulith y ArchUnit para evitar acoplamientos no deseados.</li>
-                <li><strong>Aislamiento en 3 capas</strong>: interceptor HTTP, filtro Hibernate y PostgreSQL Row Level Security (RLS) directo en la base de datos.</li>
-                <li><strong>Sesiones e identidad segura</strong>: firmas con algoritmos asimétricos (ES256), rotación de refresh tokens con detección de reutilización y almacenamiento efímero en Redis.</li>
-                <li><strong>Entrega fiable de emails</strong>: patrón Transactional Outbox + reintentos asíncronos, circuit breaker, failover de proveedores y DLQ.</li>
+                <li><strong>Aislamiento en tres capas</strong>: autorización por membresía, filtro de tenant en Hibernate y Row-Level Security de PostgreSQL.</li>
+                <li><strong>Refresh tokens con rotación</strong> y detección de reutilización.</li>
+                <li><strong>Protección contra abuso</strong>: límites de tasa; con Redis caído, la revocación sigue funcionando con PostgreSQL.</li>
+                <li><strong>Notificaciones fiables</strong>: proveedor primario y secundario con timeouts, circuit breakers, failover y backoff.</li>
               </ul>
               <ul class="decisions" lang="en">
-                <li><strong>Verified modular monolith</strong> using Spring Modulith and ArchUnit to prevent unwanted coupling.</li>
-                <li><strong>3-layer tenant isolation</strong>: HTTP interceptor, Hibernate filter, and PostgreSQL Row Level Security (RLS) directly in DB.</li>
-                <li><strong>Secure identity &amp; sessions</strong>: ES256 signatures, rotating refresh tokens with reuse detection, and Redis ephemeral storage.</li>
-                <li><strong>Reliable email delivery</strong>: Transactional Outbox pattern + async retries, circuit breaker, provider failover, and DLQ.</li>
+                <li><strong>Three-layer isolation</strong>: membership authorization, a Hibernate tenant filter and PostgreSQL Row-Level Security.</li>
+                <li><strong>Rotating refresh tokens</strong> with reuse detection.</li>
+                <li><strong>Abuse protection</strong>: rate limits; with Redis down, revocation keeps working through PostgreSQL.</li>
+                <li><strong>Reliable notifications</strong>: primary and secondary provider with timeouts, circuit breakers, failover and backoff.</li>
               </ul>
-              <div class="flow"><span>/auth/login</span><i>→</i><span>ES256 JWT + Refresh</span><i>→</i><span>RLS Tenant Filter</span><i>→</i><span>Outbox Event</span><i>⤳</i><span>DLQ</span></div>
             </div>
-            <div class="term" role="img" aria-label="Pruebas de integración y garantías de Warden">
-              <span class="row cmd">$ ./mvnw verify   <span lang="es"># criterio de terminado (definición de listo)</span><span lang="en"># definition of done</span></span>
-              <span class="row"><span class="wipc">○</span> <span lang="es">MEMBER de workspace Y intenta leer recurso de X → 403 / RLS bloquea</span><span lang="en">MEMBER of workspace Y tries to read resource in X → 403 / RLS blocked</span></span>
-              <span class="row"><span class="wipc">○</span> <span lang="es">Refresh token reutilizado → revoca familia completa de sesión en Redis</span><span lang="en">Reused refresh token → revokes entire session family in Redis</span></span>
-              <span class="row"><span class="wipc">○</span> <span lang="es">Proveedor principal de mail caído → failover a secundario + registro en DLQ</span><span lang="en">Primary mail provider down → failover to secondary + DLQ log</span></span>
-              <span class="sum">Spring Security 7 · PostgreSQL 17 RLS · Redis 8 · Testcontainers</span>
+            <div class="evidence">
+              <span class="row dim">$ ./mvnw verify</span>
+              <span class="row"><span class="ok">✓</span> <span lang="es">formato, versiones, arquitectura, pruebas unitarias e integración</span><span lang="en">formatting, versions, architecture, unit and integration checks</span></span>
+              <span class="row"><span class="ok">✓</span> <span lang="es">contra PostgreSQL 17 y Redis 8 reales</span><span lang="en">against real PostgreSQL 17 and Redis 8</span></span>
+              <span class="row"><span class="ok">✓</span> <span lang="es">falla si un endpoint de workspace no está en la suite de aislamiento</span><span lang="en">fails if a workspace endpoint is missing from the isolation suite</span></span>
+              <span class="row dim"><span lang="es">umbral: 80 % de cobertura en dominio y aplicación</span><span lang="en">gate: 80% coverage on domain and application</span></span>
             </div>
           </div>
           <div class="p-foot">
-            <span class="chip">Java 21</span><span class="chip">Spring Boot 4</span><span class="chip">Spring Security 7</span><span class="chip">PostgreSQL 17 (RLS)</span><span class="chip">Redis 8</span><span class="chip">Testcontainers</span>
+            <span class="chip">Java 21</span><span class="chip">Spring Boot 4</span><span class="chip">Spring Security</span><span class="chip">PostgreSQL (RLS)</span><span class="chip">Redis</span><span class="chip">Testcontainers</span>
             <a class="repo" href="https://github.com/kaulinmindiola/warden" target="_blank" rel="noopener"><span lang="es">Ver repositorio</span><span lang="en">View repository</span> ↗</a>
           </div>
         </article>
@@ -519,34 +643,25 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
   </section>
 
   <!-- STACK -->
-<section id="stack">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Stack</h2>
-    </div>
-    <div class="stack">
-      <div>
-        <h3>Backend &amp; APIs</h3>
-        <p><span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">Spring Security</span><span class="chip">OAuth2</span><span class="chip">JWT</span><span class="chip">Spring Data JPA / Hibernate</span><span class="chip">REST</span><span class="chip">OpenAPI</span><span class="chip">Maven</span></p>
-      </div>
-      <div>
-        <h3><span lang="es">Arquitectura y diseño</span><span lang="en">Architecture &amp; design</span></h3>
-        <p><span class="chip">Microservices</span><span class="chip">Hexagonal / Clean</span><span class="chip">SOLID</span><span class="chip">DDD</span><span class="chip">Transactional Outbox</span><span class="chip">Idempotency</span><span class="chip">Resilience4j</span></p>
-      </div>
-      <div>
-        <h3><span lang="es">Datos y nube</span><span lang="en">Data &amp; cloud</span></h3>
-        <p><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Flyway</span><span class="chip">AWS ECS Fargate</span><span class="chip">RDS</span><span class="chip">S3</span><span class="chip">SQS</span><span class="chip">CloudWatch</span><span class="chip">Secrets Manager</span></p>
-      </div>
-      <div>
-        <h3>DevOps &amp; testing</h3>
-        <p><span class="chip">Docker</span><span class="chip">GitHub Actions</span><span class="chip">Git</span><span class="chip">Micrometer / Actuator</span><span class="chip">JUnit 5</span><span class="chip">Mockito</span><span class="chip">Testcontainers</span><span class="chip">JaCoCo</span><span class="chip">SonarQube</span></p>
+  <section id="stack">
+    <div class="wrap">
+      <div class="sec-head"><h2>Stack</h2></div>
+      <div class="stack">
+        <div><h3><span lang="es">Lenguajes y frameworks</span><span lang="en">Languages &amp; frameworks</span></h3>
+          <p><span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">Spring Security</span><span class="chip">Spring Data JPA / Hibernate</span><span class="chip">Python</span><span class="chip">Django</span><span class="chip">Django REST Framework</span><span class="chip">FastAPI</span><span class="chip">SQL</span></p></div>
+        <div><h3><span lang="es">Arquitectura y confiabilidad</span><span lang="en">Architecture &amp; reliability</span></h3>
+          <p><span class="chip">REST / OpenAPI</span><span class="chip">Microservices</span><span class="chip">Hexagonal / Clean</span><span class="chip">DDD</span><span class="chip">Event-driven design</span><span class="chip">Idempotency</span><span class="chip">Transactional Outbox</span><span class="chip">Resilience4j</span></p></div>
+        <div><h3><span lang="es">Datos y mensajería</span><span lang="en">Data &amp; messaging</span></h3>
+          <p><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">Redis</span><span class="chip">Apache Kafka</span><span class="chip">Amazon SQS</span><span class="chip">Celery</span><span class="chip">Flyway</span></p></div>
+        <div><h3>Cloud, DevOps &amp; testing</h3>
+          <p><span class="chip">AWS (ECS Fargate, RDS, S3, CloudWatch)</span><span class="chip">Docker</span><span class="chip">GitHub Actions</span><span class="chip">Linux</span><span class="chip">JUnit 5</span><span class="chip">Testcontainers</span><span class="chip">pytest</span><span class="chip">SonarQube</span></p></div>
+        <div><h3><span lang="es">Aprendiendo ahora</span><span lang="en">Currently learning</span></h3>
+          <p><span class="chip soft">Kubernetes</span><span class="chip soft">Google Cloud Platform</span><span class="chip soft">Go</span></p></div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-
-  <!-- EDUCATION + CONTACT -->
+  <!-- EDU + CONTACT -->
   <section id="contacto">
     <div class="wrap duo">
       <div class="edu">
@@ -560,15 +675,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
           <p>MinTIC &amp; Universidad del Norte · Misión TIC</p>
         </div>
         <div class="langs">
-          <div class="label" lang="es">Idiomas</div><div class="label" lang="en">Languages</div>
-          <div class="lang-row"><span lang="es">Español</span><span lang="en">Spanish</span><div class="track"><div class="fill" style="width:100%"></div></div><span lang="es">Nativo</span><span lang="en">Native</span></div>
-          <div class="lang-row"><span lang="es">Inglés</span><span lang="en">English</span><div class="track"><div class="fill" style="width:50%"></div></div><span>B1</span></div>
+          <div class="lang-row"><span lang="es">Español</span><span lang="en">Spanish</span><div class="trk"><div class="fill" style="--w:100%"></div></div><span lang="es">Nativo</span><span lang="en">Native</span></div>
+          <div class="lang-row"><span lang="es">Inglés</span><span lang="en">English</span><div class="trk"><div class="fill" style="--w:70%"></div></div><span>B2</span></div>
         </div>
       </div>
       <div class="contact">
         <h3><span lang="es">Hablemos</span><span lang="en">Let's talk</span></h3>
-        <p lang="es">Busco un rol backend con Java y Spring Boot, remoto o híbrido.</p>
-        <p lang="en">Looking for a backend role with Java and Spring Boot, remote or hybrid.</p>
+        <p lang="es">Busco roles backend remotos donde la confiabilidad y la calidad de ingeniería importen.</p>
+        <p lang="en">I'm looking for remote backend roles where reliability and engineering quality matter.</p>
         <div class="links">
           <div class="mail"><span id="mail">kaulinmindiola@gmail.com</span><button type="button" class="copy" id="copy-mail"><span lang="es">Copiar</span><span lang="en">Copy</span></button></div>
           <a href="https://www.linkedin.com/in/kaulinmindiola/" target="_blank" rel="noopener"><span>linkedin.com/in/kaulinmindiola</span><span>↗</span></a>
@@ -580,28 +694,253 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
   </section>
 </main>
 
-<footer><div class="wrap"><span>© 2026 Kaulin Camilo Mindiola Gonzalez</span><span>Java · Spring Boot · PostgreSQL · AWS</span></div></footer>
+<footer><div class="wrap"><span>© 2026 Kaulin Camilo Mindiola Gonzalez</span><span>Java · Python · PostgreSQL · AWS</span></div></footer>
 
 <script>
 (function(){
-  var root=document.documentElement;
+  var root=document.documentElement, doc=document;
+  root.classList.add('js');
+  var $=function(s,r){return (r||doc).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||doc).querySelectorAll(s))};
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var L=function(){return root.dataset.lang==='en'?'en':'es'};
+  var t=function(es,en){return L()==='en'?en:es};
+  var fmt=function(n,d){return n.toLocaleString(L()==='en'?'en-US':'es-CO',{minimumFractionDigits:d,maximumFractionDigits:d})};
+  var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  var renderers=[];
+
+  /* language */
   function setLang(l){
     root.dataset.lang=l; root.lang=l;
-    document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.set===l))});
-    try{localStorage.setItem('lang',l)}catch(e){}
+    $$('.seg button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.set===l))});
+    store.set('lang',l);
+    $$('.count').forEach(function(c){c.textContent=fmt(parseFloat(c.dataset.to),+c.dataset.dec)});
+    renderers.forEach(function(r){r()});
   }
-  var start='es';
-  try{var s=localStorage.getItem('lang'); if(s==='en'||s==='es') start=s}catch(e){}
-  if(location.hash==='#en') start='en'; else if(location.hash==='#es') start='es';
-  setLang(start);
-  document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.set)})});
-  var cb=document.getElementById('copy-mail'), mail=document.getElementById('mail');
-  function selectMail(){var r=document.createRange();r.selectNodeContents(mail);var sel=getSelection();sel.removeAllRanges();sel.addRange(r)}
+  /* theme */
+  function applyTheme(m){ if(m) root.dataset.theme=m; else root.removeAttribute('data-theme'); }
+  var th=store.get('theme'); if(th==='dark'||th==='light') applyTheme(th);
+  $('#theme').addEventListener('click',function(){
+    var dark=root.dataset.theme==='dark'||(!root.dataset.theme&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var next=dark?'light':'dark'; applyTheme(next); store.set('theme',next);
+  });
+
+  /* progress + active nav */
+  var bar=$('#bar');
+  function onScroll(){var h=root.scrollHeight-innerHeight; bar.style.width=(h>0?Math.min(100,scrollY/h*100):0)+'%'}
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  var links=$$('.nav a'), secs=links.map(function(a){return $(a.getAttribute('href'))});
+  if('IntersectionObserver' in window){
+    var navIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-45% 0px -50% 0px'});
+    secs.forEach(function(s){if(s)navIO.observe(s)});
+  }
+
+  /* counters + bars on view */
+  function runCount(el){
+    var from=parseFloat(el.dataset.from),to=parseFloat(el.dataset.to),d=+el.dataset.dec;
+    if(reduce){el.textContent=fmt(to,d);return}
+    var t0=performance.now(),dur=1100;
+    (function step(now){var p=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-p,3);el.textContent=fmt(from+(to-from)*e,d);if(p<1)requestAnimationFrame(step)})(t0);
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in-view');$$('.count',e.target).forEach(runCount);io.unobserve(e.target)}})},{threshold:.35});
+    $$('.tile,.lang-row,.langs').forEach(function(x){io.observe(x)});
+  } else { $$('.tile,.langs').forEach(function(x){x.classList.add('in-view')}) }
+
+  /* spotlight */
+  $$('.tile').forEach(function(tile){tile.addEventListener('pointermove',function(e){var r=tile.getBoundingClientRect();tile.style.setProperty('--mx',(e.clientX-r.left)+'px');tile.style.setProperty('--my',(e.clientY-r.top)+'px')})});
+
+  /* hero terminal */
+  var live=$('#live');
+  var script=[
+    ['c-acc','POST /payments/transfer  X-Idempotency-Key: demo-001'],
+    ['c-dim','  redis   SET NX demo-001 → IN_PROGRESS'],
+    ['c-dim','  db      lock accounts (fixed order) · debit 100.00'],
+    ['c-ok','  201 Created'],
+    ['c-dim',''],
+    ['c-warn','POST /payments/transfer  X-Idempotency-Key: demo-001'],
+    ['c-dim','  (the client timed out and retried)'],
+    ['c-dim','  redis   key completed → cached response'],
+    ['c-ok','  same response · not executed again'],
+    ['c-dim',''],
+    ['c-acc','balance 900.00 · transfers executed: 1']
+  ];
+  var scriptEs={1:'  (el cliente agotó el tiempo y reintentó)'};
+  function buildLive(){
+    live.innerHTML='';
+    script.forEach(function(s,i){
+      var d=doc.createElement('span');d.className='ln '+s[0]+(reduce?' in':'');
+      d.textContent=(i===6&&L()==='es')?scriptEs[1]:s[1];
+      live.appendChild(d);
+    });
+    var cur=doc.createElement('span');cur.className='cursor';live.appendChild(cur);
+  }
+  var liveTimer=null;
+  function playLive(){
+    buildLive(); clearTimeout(liveTimer);
+    if(reduce) return;
+    var lines=$$('.ln',live),i=0;
+    (function next(){
+      if(i<lines.length){lines[i].classList.add('in');i++;liveTimer=setTimeout(next,i===4||i===9?260:520)}
+      else{liveTimer=setTimeout(function(){lines.forEach(function(l){l.classList.remove('in')});liveTimer=setTimeout(function(){i=0;next()},500)},4200)}
+    })();
+  }
+  renderers.push(function(){var wasRunning=!!liveTimer;if(reduce||!wasRunning){buildLive()}});
+
+  /* tabs */
+  var tabs=$$('[role=tab]');
+  function selectTab(i){tabs.forEach(function(b,j){var on=i===j;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;$('#'+b.getAttribute('aria-controls')).hidden=!on})}
+  tabs.forEach(function(b,i){
+    b.addEventListener('click',function(){selectTab(i)});
+    b.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowLeft'){var n=(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;selectTab(n);tabs[n].focus()}});
+  });
+
+  /* ---------- shared sim helpers ---------- */
+  function logger(id){
+    var box=$(id),items=[];
+    return {
+      add:function(c,es,en){items.push({c:c,es:es,en:en});this.draw()},
+      clear:function(){items=[];this.draw()},
+      draw:function(){
+        box.innerHTML='';
+        if(!items.length){var e=doc.createElement('span');e.className='l empty';e.textContent=t('Esperando eventos…','Waiting for events…');box.appendChild(e);return}
+        items.forEach(function(x){var d=doc.createElement('span');d.className='l '+x.c;d.textContent=t(x.es,x.en);box.appendChild(d)});
+        box.scrollTop=box.scrollHeight;
+      }
+    };
+  }
+  function stat(label,value,cls){return '<div class="stat '+(cls||'')+'"><div class="k">'+label+'</div><div class="v">'+value+'</div></div>'}
+
+  /* ---------- Sim 1: FluxPay ---------- */
+  var s1={bal:1000,exec:0,busy:false,timers:[]}, log1=logger('#s1-log');
+  function draw1(){
+    var bad=s1.exec>1;
+    $('#s1-state').innerHTML=stat(t('Saldo','Balance'),fmt(s1.bal,2),bad?'bad':'')+stat(t('Transferencias ejecutadas','Transfers executed'),s1.exec,bad?'bad':(s1.exec===1?'good':''));
+    $('#s1-go').disabled=s1.busy;
+  }
+  function reset1(){s1.timers.forEach(clearTimeout);s1.timers=[];s1.bal=1000;s1.exec=0;s1.busy=false;log1.clear();draw1()}
+  function at(ms,fn){s1.timers.push(setTimeout(fn,ms))}
+  $('#s1-go').addEventListener('click',function(){
+    if(s1.busy)return; s1.busy=true; draw1();
+    var idem=$('#s1-idem').checked, redis=$('#s1-redis').checked, step=reduce?0:140;
+    log1.add('dim','── 5 solicitudes idénticas · 100,00 ──','── 5 identical requests · 100.00 ──');
+    for(var i=1;i<=5;i++)(function(i){
+      at(i*step,function(){
+        if(!idem){
+          s1.bal-=100;s1.exec++;draw1();
+          log1.add('bad','#'+i+' sin clave de idempotencia → débito ejecutado','#'+i+' no idempotency key → debit executed');
+        } else if(redis){
+          if(i===1){log1.add('ok','#1 Redis SET NX → reclamo adquirido · ejecutando…','#1 Redis SET NX → claim acquired · executing…');
+            at(step*5+80,function(){s1.bal-=100;s1.exec++;draw1();log1.add('ok','#1 commit ACID → 201 Created','#1 ACID commit → 201 Created')})}
+          else if(i<=3) log1.add('warn','#'+i+' clave en curso → 409 Conflict','#'+i+' key in progress → 409 Conflict');
+          else at(step*5+200,function(){log1.add('ok','#'+i+' clave completada → misma respuesta, sin ejecutar de nuevo','#'+i+' key completed → same response, not executed again')});
+        } else {
+          if(i===1){at(step*2,function(){s1.bal-=100;s1.exec++;draw1();log1.add('ok','#1 Redis no responde → reclamo omitido · commit ACID','#1 Redis unreachable → claim skipped · ACID commit')})}
+          else log1.add('warn','#'+i+' Redis no responde → reclamo omitido','#'+i+' Redis unreachable → claim skipped');
+          if(i>1) at(step*2+i*40,function(){log1.add('ok','#'+i+' UNIQUE de PostgreSQL rechaza el duplicado → sin segundo débito','#'+i+' PostgreSQL UNIQUE rejects the duplicate → no second debit')});
+        }
+      });
+    })(i);
+    at(step*5+700,function(){
+      s1.busy=false;draw1();
+      if(s1.exec>1) log1.add('bad','Resultado: '+s1.exec+' débitos por una misma intención de pago.','Result: '+s1.exec+' debits for a single payment intent.');
+      else log1.add('ok','Resultado: un solo débito. Saldo 900,00.','Result: a single debit. Balance 900.00.');
+    });
+  });
+  $('#s1-reset').addEventListener('click',reset1);
+  ['#s1-idem'].forEach(function(s){$(s).addEventListener('change',function(){$('#s1-redis').disabled=!$('#s1-idem').checked})});
+  renderers.push(function(){draw1();log1.draw()});
+
+  /* ---------- Sim 2: Relay ---------- */
+  var s2={stock:10,orders:[],outbox:[],processed:{},next:1,lastEvt:null,pub:0};
+  var log2=logger('#s2-log');
+  function draw2(){
+    var pend=s2.outbox.filter(function(o){return !o.sent}).length;
+    $('#s2-state').innerHTML=stat('Kafka',$('#s2-kafka').checked?t('arriba','up'):t('caído','down'),$('#s2-kafka').checked?'good':'bad')+stat(t('Outbox pendiente','Outbox pending'),pend,pend?'bad':'')+stat('Stock SKU-001',s2.stock);
+    var c=$('#s2-orders');c.innerHTML='';
+    s2.orders.forEach(function(o){var d=doc.createElement('span');d.className='ord '+o.s;d.textContent='order-'+o.id+' · '+o.s;c.appendChild(d)});
+  }
+  function reset2(){s2={stock:10,orders:[],outbox:[],processed:{},next:1,lastEvt:null,pub:0};log2.clear();draw2()}
+  function consume(evt,dup){
+    if(s2.processed[evt.id]){
+      log2.add('warn','inventory-service ← OrderCreated#'+evt.id+' (duplicado) → processed_events ya lo tiene: no-op','inventory-service ← OrderCreated#'+evt.id+' (duplicate) → already in processed_events: no-op');
+      log2.add('ok','Stock sin cambios: '+s2.stock+'. Efecto aplicado una sola vez.','Stock unchanged: '+s2.stock+'. Effect applied once.');return;
+    }
+    s2.processed[evt.id]=true;
+    var ord=s2.orders.filter(function(o){return o.id===evt.id})[0];
+    if(s2.stock>0){s2.stock--;ord.s='CONFIRMED';log2.add('ok','inventory-service ← OrderCreated#'+evt.id+' → stock reservado · InventoryReserved → order-'+evt.id+' CONFIRMED','inventory-service ← OrderCreated#'+evt.id+' → stock reserved · InventoryReserved → order-'+evt.id+' CONFIRMED')}
+    else{ord.s='REJECTED';log2.add('bad','inventory-service ← OrderCreated#'+evt.id+' → sin stock · order-'+evt.id+' REJECTED','inventory-service ← OrderCreated#'+evt.id+' → out of stock · order-'+evt.id+' REJECTED')}
+  }
+  function tick(){
+    var up=$('#s2-kafka').checked;
+    s2.outbox.forEach(function(o){
+      if(o.sent)return;
+      if(!up){return}
+      o.sent=true;s2.lastEvt=o;
+      log2.add('dim','outbox publisher → Kafka ack → evento #'+o.id+' marcado como publicado','outbox publisher → Kafka ack → event #'+o.id+' marked as published');
+      consume(o,false);
+    });
+    draw2();
+  }
+  setInterval(tick,1300);
+  $('#s2-order').addEventListener('click',function(){
+    var id=s2.next++;s2.orders.push({id:id,s:'PENDING'});s2.outbox.push({id:id,sent:false});
+    log2.add('ok','POST /orders → 201 · order-'+id+' PENDING + evento en el outbox (misma transacción)','POST /orders → 201 · order-'+id+' PENDING + event in the outbox (same transaction)');
+    if(!$('#s2-kafka').checked) log2.add('warn','Kafka caído: el evento espera en PostgreSQL, la orden no se pierde','Kafka is down: the event waits in PostgreSQL, the order is not lost');
+    draw2();
+  });
+  $('#s2-kafka').addEventListener('change',function(){
+    if(this.checked) log2.add('ok','Kafka vuelve: el publisher enviará lo pendiente en su próximo ciclo','Kafka is back: the publisher will send what is pending on its next cycle');
+    else log2.add('warn','Kafka se cae','Kafka goes down');
+    draw2();
+  });
+  $('#s2-dup').addEventListener('click',function(){
+    if(!s2.lastEvt){log2.add('warn','Aún no se ha publicado ningún evento. Crea una orden con Kafka arriba.','No event has been published yet. Create an order with Kafka up.');return}
+    consume(s2.lastEvt,true);draw2();
+  });
+  $('#s2-reset').addEventListener('click',reset2);
+  renderers.push(function(){draw2();log2.draw()});
+
+  /* ---------- Sim 3: Warden ---------- */
+  var s3={tokens:[{n:1,s:'active'}],revoked:false,n:1}, log3=logger('#s3-log');
+  function draw3(){
+    var c=$('#s3-tokens');c.innerHTML='';
+    s3.tokens.forEach(function(k){var d=doc.createElement('span');d.className='tok '+k.s;d.textContent='rt_'+k.n+' · '+({active:t('activo','active'),used:t('usado','used'),revoked:t('revocado','revoked')})[k.s];c.appendChild(d)});
+    $('#s3-state').innerHTML=stat(t('Sesión','Session'),s3.revoked?t('revocada','revoked'):t('activa','active'),s3.revoked?'bad':'good');
+  }
+  function login3(){s3={tokens:[{n:1,s:'active'}],revoked:false,n:1};log3.clear();log3.add('ok','POST /auth/login → access token + rt_1','POST /auth/login → access token + rt_1');draw3()}
+  $('#s3-login').addEventListener('click',login3);
+  $('#s3-refresh').addEventListener('click',function(){
+    if(s3.revoked){log3.add('bad','POST /auth/refresh → 401: la sesión fue revocada. Hay que iniciar sesión de nuevo.','POST /auth/refresh → 401: the session was revoked. Log in again.');return}
+    var cur=s3.tokens.filter(function(k){return k.s==='active'})[0];cur.s='used';s3.n++;s3.tokens.push({n:s3.n,s:'active'});
+    log3.add('ok','POST /auth/refresh (rt_'+cur.n+') → rt_'+s3.n+' emitido · rt_'+cur.n+' queda usado','POST /auth/refresh (rt_'+cur.n+') → rt_'+s3.n+' issued · rt_'+cur.n+' is now used');draw3();
+  });
+  $('#s3-replay').addEventListener('click',function(){
+    if(s3.revoked){log3.add('bad','POST /auth/refresh → 401: la sesión ya estaba revocada.','POST /auth/refresh → 401: the session was already revoked.');return}
+    var old=s3.tokens.filter(function(k){return k.s==='used'})[0];
+    if(!old){log3.add('warn','Aún no hay tokens usados. Pulsa «Refrescar» primero.','No used tokens yet. Press “Refresh” first.');return}
+    log3.add('warn','POST /auth/refresh (rt_'+old.n+') ← token ya usado','POST /auth/refresh (rt_'+old.n+') ← already used token');
+    log3.add('bad','Reutilización detectada → se revoca toda la familia de tokens y la sesión','Reuse detected → the whole token family and the session are revoked');
+    s3.tokens.forEach(function(k){k.s='revoked'});s3.revoked=true;
+    log3.add('dim','El cliente legítimo también pierde la sesión: es el costo de cortar al atacante.','The legitimate client loses the session too: that is the cost of cutting out the attacker.');draw3();
+  });
+  renderers.push(function(){draw3();log3.draw()});
+
+  /* copy mail */
+  var cb=$('#copy-mail'),mail=$('#mail');
+  function selectMail(){var r=doc.createRange();r.selectNodeContents(mail);var sel=getSelection();sel.removeAllRanges();sel.addRange(r)}
   cb.addEventListener('click',function(){
-    var orig=cb.innerHTML, en=root.dataset.lang==='en';
-    function done(ok){cb.textContent= ok ? (en?'Copied':'Copiado') : (en?'Selected':'Seleccionado'); setTimeout(function(){cb.innerHTML=orig},1800)}
+    var orig=cb.innerHTML;
+    function done(ok){cb.textContent=ok?t('Copiado','Copied'):t('Seleccionado','Selected');setTimeout(function(){cb.innerHTML=orig},1800)}
     try{navigator.clipboard.writeText(mail.textContent).then(function(){done(true)},function(){selectMail();done(false)})}catch(e){selectMail();done(false)}
   });
+
+  /* init */
+  $$('.seg button').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.set)})});
+  var start='es',sl=store.get('lang');if(sl==='en'||sl==='es')start=sl;
+  if(location.hash==='#en')start='en';else if(location.hash==='#es')start='es';
+  reset1();log2.draw();draw2();login3();
+  setLang(start);
+  playLive();
 })();
 </script>
 </body>

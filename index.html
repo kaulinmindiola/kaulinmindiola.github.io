@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kaulin Mindiola · Backend Engineer</title>
-<meta name="description" content="Kaulin Mindiola, Backend Engineer con Java (Spring Boot) y Python (Django, FastAPI). Sistemas distribuidos confiables: idempotencia, eventos, multi-tenant. Pagos fallidos de 4,2 % a 0,8 %, p95 de 6 s a 0,4 s.">
+<meta name="description" content="Kaulin Mindiola, Backend Engineer en Java (Spring Boot), también con Python. Sistemas distribuidos confiables: idempotencia, eventos, multi-tenant. Migración a Java 17 / Spring Boot 3.2, disponibilidad de 99,5 % a 99,95 %, p95 de 6 s a 0,4 s.">
 <meta name="author" content="Kaulin Camilo Mindiola Gonzalez">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Kaulin Mindiola · Backend Engineer (Java · Python)">
+<meta property="og:title" content="Kaulin Mindiola · Backend Engineer (Java · Spring Boot)">
 <meta property="og:description" content="4 años construyendo y operando servicios backend en producción. Sistemas que siguen funcionando cuando algo falla.">
 <meta property="og:image" content="assets/foto-perfil.jpg">
 <meta name="twitter:card" content="summary">
@@ -123,7 +123,7 @@ section{padding-block:64px}
 .tile:hover::after{opacity:1}
 .t3{grid-column:span 3}.t2{grid-column:span 2}.t6{grid-column:span 6}
 @media (max-width:900px){.t3,.t2{grid-column:span 6}}
-@media (min-width:600px) and (max-width:900px){.t2{grid-column:span 3}.t2:last-of-type{grid-column:span 6}}
+@media (min-width:600px) and (max-width:900px){.t2{grid-column:span 3}.t2:nth-of-type(4){grid-column:span 6}}
 .tile .big{font:800 clamp(2.3rem,5.4vw,3.4rem)/1 var(--f-display);letter-spacing:-.035em;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px}
 .big .from{color:var(--before);text-decoration:line-through;text-decoration-thickness:2px;font-size:.62em}
 .big .arrow{color:var(--muted);font-size:.5em;font-weight:500}
@@ -288,7 +288,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
         </figure>
         <span class="status"><span lang="es">Disponible · abierto a trabajo remoto</span><span lang="en">Available · open to remote work</span></span>
         <h1>Kaulin Mindiola</h1>
-        <p class="role">Backend Engineer · Java · Python · AWS</p>
+        <p class="role">Backend Engineer · Java · Spring Boot · AWS</p>
         <p class="thesis" lang="es">Construyo y opero servicios backend que siguen funcionando cuando algo falla: pagos que no se duplican, eventos que no se pierden y APIs que responden rápido con millones de filas.</p>
         <p class="thesis" lang="en">I build and run backend services that keep working when something fails: payments that never duplicate, events that never get lost, and APIs that stay fast over millions of rows.</p>
         <div class="cta">
@@ -307,7 +307,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
     </div>
     <dl class="facts">
       <div><dt lang="es">Experiencia</dt><dt lang="en">Experience</dt><dd lang="es">4 años</dd><dd lang="en">4 years</dd></div>
-      <div><dt lang="es">Lenguajes</dt><dt lang="en">Languages</dt><dd>Java · Python</dd></div>
+      <div><dt lang="es">Lenguajes</dt><dt lang="en">Languages</dt><dd>Java · Spring Boot</dd></div>
       <div><dt lang="es">Enfoque</dt><dt lang="en">Focus</dt><dd lang="es">Confiabilidad</dd><dd lang="en">Reliability</dd></div>
       <div><dt lang="es">Ubicación</dt><dt lang="en">Location</dt><dd lang="es">Colombia · remoto</dd><dd lang="en">Colombia · remote</dd></div>
     </dl>
@@ -322,45 +322,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
         <p lang="en">Results at EFFICODE, on client projects. Approximate figures; the code and the clients are confidential.</p>
       </div>
       <div class="bento">
-        <article class="tile t3">
-          <div class="tag" lang="es">Pagos · Python</div><div class="tag" lang="en">Payments · Python</div>
-          <div class="big"><span class="from">4,2%</span><span class="arrow">→</span><span class="to"><span class="count" data-from="4.2" data-to="0.8" data-dec="1">0,8</span>%</span></div>
-          <h3 lang="es">Pagos fallidos tras rediseñar el flujo de pagos</h3><h3 lang="en">Failed payments after redesigning the payment flow</h3>
-          <p lang="es">De llamadas síncronas a un flujo orientado a eventos con webhooks idempotentes y reintentos con Celery. ~US$18.000 al mes recuperados.</p>
-          <p lang="en">From synchronous calls to an event-driven flow with idempotent webhooks and Celery retries. ~US$18k per month recovered.</p>
-        </article>
-        <article class="tile t3">
-          <div class="tag" lang="es">Rendimiento</div><div class="tag" lang="en">Performance</div>
-          <div class="big"><span class="count" data-from="1" data-to="15" data-dec="0">15</span>×<span class="arrow" lang="es">más rápido</span><span class="arrow" lang="en">faster</span></div>
-          <h3 lang="es">Latencia p95 del listado de órdenes</h3><h3 lang="en">p95 latency of the order listing</h3>
-          <div class="bars" role="img" aria-label="p95: 6 s antes, 0,4 s después / before 6 s, after 0.4 s">
-            <div class="bar"><span lang="es">antes</span><span lang="en">before</span><div class="trk"><div class="fill" style="--w:100%"></div></div><b>~6 s</b></div>
-            <div class="bar"><span lang="es">después</span><span lang="en">after</span><div class="trk"><div class="fill after" style="--w:6.67%"></div></div><b>~0,4 s</b></div>
-          </div>
-          <p lang="es">Sobre ~2 millones de filas: consultas e índices, paginación y caché.</p>
-          <p lang="en">Over ~2 million rows: query and index tuning, pagination and caching.</p>
-        </article>
-        <article class="tile t2">
-          <div class="tag" lang="es">Confiabilidad</div><div class="tag" lang="en">Reliability</div>
-          <div class="big"><span class="count" data-from="99.5" data-to="99.95" data-dec="2">99,95</span>%</div>
-          <h3 lang="es">Disponibilidad de la API principal</h3><h3 lang="en">Core API availability</h3>
-          <p lang="es">Desde 99,5 %, con SLOs, trazabilidad distribuida y rollbacks automáticos. 30 % menos tickets de soporte.</p>
-          <p lang="en">Up from 99.5%, with SLOs, distributed tracing and automated rollbacks. 30% fewer support tickets.</p>
-        </article>
-        <article class="tile t2">
-          <div class="tag">Multi-tenant</div>
-          <div class="big"><span class="count" data-from="1" data-to="3" data-dec="0">3</span>×<span class="arrow" lang="es">clientes</span><span class="arrow" lang="en">customers</span></div>
-          <h3 lang="es">PostgreSQL de 400 GB, sin tiempo de inactividad</h3><h3 lang="en">400 GB PostgreSQL, zero downtime</h3>
-          <p lang="es">De single-tenant a multi-tenant particionado en la misma infraestructura. 40 % menos de costo en la nube por cliente.</p>
-          <p lang="en">From single-tenant to partitioned multi-tenant on the same infrastructure. 40% lower cloud cost per customer.</p>
-        </article>
-        <article class="tile t2">
-          <div class="tag" lang="es">Automatización</div><div class="tag" lang="en">Automation</div>
-          <div class="big"><span class="from">10 h</span><span class="arrow">→</span><span class="to">1 h</span></div>
-          <h3 lang="es">Conciliación diaria de pagos</h3><h3 lang="en">Daily payment reconciliation</h3>
-          <p lang="es">Esfuerzo semanal de finanzas, tras automatizar la conciliación.</p>
-          <p lang="en">Weekly finance effort after automating the reconciliation.</p>
-        </article>
         <article class="tile t6">
           <div class="tag" lang="es">Modernización · Java</div><div class="tag" lang="en">Modernization · Java</div>
           <div class="pipe">
@@ -373,6 +334,45 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
           </div>
           <p lang="es">Con pruebas de integración y cero regresiones visibles para el cliente. Redujo ~20 % el lead time de nuevas funcionalidades.</p>
           <p lang="en">Backed by integration tests, with zero customer-facing regressions. Cut feature lead time by ~20%.</p>
+        </article>
+        <article class="tile t2">
+          <div class="tag">Multi-tenant</div>
+          <div class="big"><span class="count" data-from="1" data-to="3" data-dec="0">3</span>×<span class="arrow" lang="es">clientes</span><span class="arrow" lang="en">customers</span></div>
+          <h3 lang="es">PostgreSQL de 400 GB, sin tiempo de inactividad</h3><h3 lang="en">400 GB PostgreSQL, zero downtime</h3>
+          <p lang="es">De single-tenant a multi-tenant particionado en la misma infraestructura. 40 % menos de costo en la nube por cliente.</p>
+          <p lang="en">From single-tenant to partitioned multi-tenant on the same infrastructure. 40% lower cloud cost per customer.</p>
+        </article>
+        <article class="tile t2">
+          <div class="tag" lang="es">Confiabilidad</div><div class="tag" lang="en">Reliability</div>
+          <div class="big"><span class="count" data-from="99.5" data-to="99.95" data-dec="2">99,95</span>%</div>
+          <h3 lang="es">Disponibilidad de la API principal</h3><h3 lang="en">Core API availability</h3>
+          <p lang="es">Desde 99,5 %, con SLOs, trazabilidad distribuida y rollbacks automáticos. 30 % menos tickets de soporte.</p>
+          <p lang="en">Up from 99.5%, with SLOs, distributed tracing and automated rollbacks. 30% fewer support tickets.</p>
+        </article>
+        <article class="tile t2">
+          <div class="tag" lang="es">Automatización</div><div class="tag" lang="en">Automation</div>
+          <div class="big"><span class="from">10 h</span><span class="arrow">→</span><span class="to">1 h</span></div>
+          <h3 lang="es">Conciliación diaria de pagos</h3><h3 lang="en">Daily payment reconciliation</h3>
+          <p lang="es">Esfuerzo semanal de finanzas, tras automatizar la conciliación.</p>
+          <p lang="en">Weekly finance effort after automating the reconciliation.</p>
+        </article>
+        <article class="tile t3">
+          <div class="tag" lang="es">Rendimiento</div><div class="tag" lang="en">Performance</div>
+          <div class="big"><span class="count" data-from="1" data-to="15" data-dec="0">15</span>×<span class="arrow" lang="es">más rápido</span><span class="arrow" lang="en">faster</span></div>
+          <h3 lang="es">Latencia p95 del listado de órdenes</h3><h3 lang="en">p95 latency of the order listing</h3>
+          <div class="bars" role="img" aria-label="p95: 6 s antes, 0,4 s después / before 6 s, after 0.4 s">
+            <div class="bar"><span lang="es">antes</span><span lang="en">before</span><div class="trk"><div class="fill" style="--w:100%"></div></div><b>~6 s</b></div>
+            <div class="bar"><span lang="es">después</span><span lang="en">after</span><div class="trk"><div class="fill after" style="--w:6.67%"></div></div><b>~0,4 s</b></div>
+          </div>
+          <p lang="es">Sobre ~2 millones de filas: consultas e índices, paginación y caché.</p>
+          <p lang="en">Over ~2 million rows: query and index tuning, pagination and caching.</p>
+        </article>
+        <article class="tile t3">
+          <div class="tag" lang="es">Pagos · Python</div><div class="tag" lang="en">Payments · Python</div>
+          <div class="big"><span class="from">4,2%</span><span class="arrow">→</span><span class="to"><span class="count" data-from="4.2" data-to="0.8" data-dec="1">0,8</span>%</span></div>
+          <h3 lang="es">Pagos fallidos tras rediseñar el flujo de pagos</h3><h3 lang="en">Failed payments after redesigning the payment flow</h3>
+          <p lang="es">De llamadas síncronas a un flujo orientado a eventos con webhooks idempotentes y reintentos con Celery. ~US$18.000 al mes recuperados.</p>
+          <p lang="en">From synchronous calls to an event-driven flow with idempotent webhooks and Celery retries. ~US$18k per month recovered.</p>
         </article>
       </div>
       <div class="ctx">
@@ -458,8 +458,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
     <div class="wrap">
       <div class="sec-head">
         <h2><span lang="es">Experiencia</span><span lang="en">Experience</span></h2>
-        <p lang="es">EFFICODE, empresa de servicios de software. Servicios backend en producción para proyectos de clientes, en Python y Java.</p>
-        <p lang="en">EFFICODE, a software services company. Production backend services for client projects, in Python and Java.</p>
+        <p lang="es">EFFICODE, empresa de servicios de software. Servicios backend en producción para proyectos de clientes, principalmente en Java y también en Python.</p>
+        <p lang="en">EFFICODE, a software services company. Production backend services for client projects, primarily in Java and also in Python.</p>
       </div>
       <div>
         <div class="role-row">
@@ -469,11 +469,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
             <p class="sub" lang="es">Responsable técnico de los módulos de órdenes y pagos de una plataforma order-to-cash de 6 microservicios, en un equipo Scrum de 9 personas.</p>
             <p class="sub" lang="en">Technical owner of the orders and payments modules of a 6-microservice order-to-cash platform, in a 9-person Scrum team.</p>
             <div class="cases">
-              <div class="case">
-                <div class="tag" lang="es">Pagos · Python</div><div class="tag" lang="en">Payments · Python</div>
-                <p lang="es">Diseñé y lideré el paso de llamadas síncronas a un <strong>flujo orientado a eventos</strong> en Django/DRF, con webhooks idempotentes y reintentos con Celery, a cargo de contratos de API, modelo de datos, despliegue y monitoreo. Los pagos fallidos bajaron del 4,2 % al 0,8 % (~US$18.000/mes recuperados).</p>
-                <p lang="en">Designed and led the move from synchronous calls to an <strong>event-driven flow</strong> in Django/DRF, with idempotent webhooks and Celery retries, owning API contracts, data model, deployment and monitoring. Failed payments fell from 4.2% to 0.8% (~US$18k/month recovered).</p>
-              </div>
               <div class="case">
                 <div class="tag" lang="es">Modernización · Java</div><div class="tag" lang="en">Modernization · Java</div>
                 <p lang="es">Lideré la migración a <strong>Java 17 / Spring Boot 3.2</strong> con ~78 % de cobertura y cero regresiones visibles para el cliente. Reduje ~20 % el lead time de nuevas funcionalidades.</p>
@@ -493,6 +488,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
                 <div class="tag" lang="es">Rendimiento</div><div class="tag" lang="en">Performance</div>
                 <p lang="es">Bajé la <strong>latencia p95 del listado de órdenes de ~6 s a ~0,4 s</strong> sobre ~2 millones de filas y automaticé la conciliación diaria de pagos: el esfuerzo de finanzas pasó de ~10 h a ~1 h por semana.</p>
                 <p lang="en">Cut the <strong>p95 latency of the order listing from ~6 s to ~0.4 s</strong> over ~2 million rows and automated daily payment reconciliation: finance effort went from ~10 h to ~1 h per week.</p>
+              </div>
+              <div class="case">
+                <div class="tag" lang="es">Pagos · Python</div><div class="tag" lang="en">Payments · Python</div>
+                <p lang="es">Diseñé y lideré el paso de llamadas síncronas a un <strong>flujo orientado a eventos</strong> en Django/DRF, con webhooks idempotentes y reintentos con Celery, a cargo de contratos de API, modelo de datos, despliegue y monitoreo. Los pagos fallidos bajaron del 4,2 % al 0,8 % (~US$18.000/mes recuperados).</p>
+                <p lang="en">Designed and led the move from synchronous calls to an <strong>event-driven flow</strong> in Django/DRF, with idempotent webhooks and Celery retries, owning API contracts, data model, deployment and monitoring. Failed payments fell from 4.2% to 0.8% (~US$18k/month recovered).</p>
               </div>
             </div>
           </div>
@@ -654,7 +654,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
         <div><h3><span lang="es">Datos y mensajería</span><span lang="en">Data &amp; messaging</span></h3>
           <p><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">Redis</span><span class="chip">Apache Kafka</span><span class="chip">Amazon SQS</span><span class="chip">Celery</span><span class="chip">Flyway</span></p></div>
         <div><h3>Cloud, DevOps &amp; testing</h3>
-          <p><span class="chip">AWS (ECS Fargate, RDS, S3, CloudWatch)</span><span class="chip">Docker</span><span class="chip">GitHub Actions</span><span class="chip">Linux</span><span class="chip">JUnit 5</span><span class="chip">Testcontainers</span><span class="chip">pytest</span><span class="chip">SonarQube</span></p></div>
+          <p><span class="chip">AWS (ECS Fargate, RDS, S3, CloudWatch)</span><span class="chip">Docker</span><span class="chip">GitHub Actions</span><span class="chip">Linux</span><span class="chip">JUnit 5</span><span class="chip">Testcontainers</span><span class="chip">ArchUnit</span><span class="chip">JaCoCo</span><span class="chip">SonarQube</span><span class="chip">pytest</span></p></div>
         <div><h3><span lang="es">Aprendiendo ahora</span><span lang="en">Currently learning</span></h3>
           <p><span class="chip soft">Kubernetes</span><span class="chip soft">Google Cloud Platform</span><span class="chip soft">Go</span></p></div>
       </div>
